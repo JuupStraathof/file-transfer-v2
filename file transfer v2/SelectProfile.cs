@@ -143,7 +143,7 @@ namespace file_transfer_v2
         }
         private void DatabaseExists()
         {
-            if (File.Exists("..\\..\\..\\Database.xml"))
+            if (!File.Exists("..\\..\\..\\Database.xml"))
             {
                 XDocument xDoc = new XDocument(new XDeclaration("1.0", "utf-8", "yes"));
                 var profile = new XElement("projects");
