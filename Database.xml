@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<projects>
+  <project>
+    <projectName>select a project</projectName>
+    <projectSourcePath>select a source path</projectSourcePath>
+    <projectTargetPath>select a target path</projectTargetPath>
+    <projectFiles>
+      <File>file1.txt</File>
+      <File>file2.txt</File>
+      <File>file3.txt</File>
+    </projectFiles>
+  </project>
+</projects>
