@@ -10,4 +10,14 @@
       <File>file3.txt</File>
     </projectFiles>
   </project>
+  <project>
+    <projectName>project 1</projectName>
+    <projectSourcePath>path 1</projectSourcePath>
+    <projectTargetPath>path 2</projectTargetPath>
+    <projectFiles>
+      <File>file4.txt</File>
+      <File>file5.txt</File>
+      <File>file6.txt</File>
+    </projectFiles>
+  </project>
 </projects>

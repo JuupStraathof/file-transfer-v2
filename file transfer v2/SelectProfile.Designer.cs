@@ -47,7 +47,6 @@ namespace file_transfer_v2
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "select a profile";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // BtnEditProfile
             // 
@@ -86,6 +85,7 @@ namespace file_transfer_v2
             this.Controls.Add(this.groupBox1);
             this.Name = "FrmSelectProfile";
             this.Text = "Select Profile";
+            this.Activated += new System.EventHandler(this.FrmSelectProfile_Activated);
             this.Load += new System.EventHandler(this.FrmSelectProfile_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);

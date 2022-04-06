@@ -19,7 +19,8 @@ namespace file_transfer_v2
         {
             InitializeComponent();
             _fileInfo = new FileInfo();
-        }
+             
+    }
         List<FileInfo> lstFileInfo = new List<FileInfo>();
 
         private void BtnCopyFiles_Click(object sender, EventArgs e)
@@ -61,7 +62,9 @@ namespace file_transfer_v2
         private void BtnEditProfile_Click(object sender, EventArgs e)
         {
             Form ProfileManagerForm = new ProfileManager();
+
             ProfileManagerForm.ShowDialog();
+
         }
         public class FileInfo
         {
@@ -118,6 +121,7 @@ namespace file_transfer_v2
         }
         private void LoadData()
         {
+            CmbSelectProfile.Items.Clear();
             foreach (XElement projectElement in XElement.Load("..\\..\\..\\Database.xml").Elements("project"))
             {
                 _fileInfo.ProjectName = projectElement.Element("projectName").Value.ToString();
@@ -182,15 +186,16 @@ namespace file_transfer_v2
 
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
+               
         private void FrmSelectProfile_Load(object sender, EventArgs e)
         {
             DatabaseExists();
             LoadData();
+        }
+        
+        private void FrmSelectProfile_Activated(object sender, EventArgs e)
+        {
+            LoadData(); 
         }
     }
 }
