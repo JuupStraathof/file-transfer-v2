@@ -24,38 +24,43 @@ namespace file_transfer_v2
         List<FileInfo> lstFileInfo = new List<FileInfo>();
 
         private void BtnCopyFiles_Click(object sender, EventArgs e)
-        { 
-            //need to make system to check if path is valid.
-            //needing to make coping system work and create checks for when new preset should be created/ editing a existing one.
-            if (Directory.Exists(_fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString()))
+        {
+            if (CmbSelectProfile.SelectedIndex == 0)
             {
-                var MessageCaption = "warning";
-                var messageString = "the following directory already exists: " + _fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString() + "\n do you want to overwrite it?";
-                var result = MessageBox.Show(messageString, MessageCaption, MessageBoxButtons.YesNo);
-
-                if (result == DialogResult.No)
-                {
-                    MessageBox.Show("the copying of files has been aborted");
-                }
-                if (result == DialogResult.Yes)
-                {
-                    Directory.CreateDirectory(_fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString());
-                    foreach (string s in _fileInfo.ProjectFiles)
-                    {
-                        //bug can't find path
-                        File.Copy(_fileInfo.ProjectSourcePath + "/" + s, _fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd") + "/" + s, true);
-                    }
-                    MessageBox.Show("copying of files has been completed");
-                }
+                MessageBox.Show("you can't copy this preset");
             }
             else
             {
-                Directory.CreateDirectory(_fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString());
-                foreach (string s in _fileInfo.ProjectFiles)
-                { //can't find file path 
-                    File.Copy(_fileInfo.ProjectSourcePath + "/" + s, _fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd") + "/" + s, true);
+                if (Directory.Exists(_fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString()))
+                {
+                    var MessageCaption = "warning";
+                    var messageString = "the following directory already exists: " + _fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString() + "\n do you want to overwrite it?";
+                    var result = MessageBox.Show(messageString, MessageCaption, MessageBoxButtons.YesNo);
+
+                    if (result == DialogResult.No)
+                    {
+                        MessageBox.Show("the copying of files has been aborted");
+                    }
+                    if (result == DialogResult.Yes)
+                    {
+                        Directory.CreateDirectory(_fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString());
+                        foreach (string s in _fileInfo.ProjectFiles)
+                        {
+                            //bug can't find path
+                            File.Copy(_fileInfo.ProjectSourcePath + "/" + s, _fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd") + "/" + s, true);
+                        }
+                        MessageBox.Show("copying of files has been completed");
+                    }
                 }
-                MessageBox.Show("copying of files has been completed");
+                else
+                {
+                    Directory.CreateDirectory(_fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString());
+                    foreach (string s in _fileInfo.ProjectFiles)
+                    { //can't find file path 
+                        File.Copy(_fileInfo.ProjectSourcePath + "/" + s, _fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd") + "/" + s, true);
+                    }
+                        MessageBox.Show("copying of files has been completed");
+                }
             }
         }
 
@@ -128,7 +133,6 @@ namespace file_transfer_v2
                 _fileInfo.ProjectSourcePath = projectElement.Element("projectSourcePath").Value.ToString();
                 _fileInfo.ProjectTargetPath = projectElement.Element("projectTargetPath").Value.ToString();
 
-
                 foreach (var child in projectElement.Elements())
                 {
                     foreach (var decentand in child.Descendants())
@@ -140,8 +144,7 @@ namespace file_transfer_v2
                     }
                 }
                     CmbSelectProfile.Items.Add(_fileInfo.ProjectName.ToString());
-
-                lstFileInfo.Add(_fileInfo);
+                    lstFileInfo.Add(_fileInfo);
             }
             CmbSelectProfile.SelectedIndex = 0;
         }
@@ -166,7 +169,6 @@ namespace file_transfer_v2
                 target.Value = "select a target path";
 
                 var projectfiles = new XElement("projectFiles");
-
 
                 profile.Add(project);
                 project.Add(projectName, source, target, projectfiles);

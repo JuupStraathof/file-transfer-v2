@@ -19,12 +19,12 @@ namespace file_transfer_v2
         {
             InitializeComponent();
             _fileInfo = new FileInfo();
-             
+
         }
         List<FileInfo> lstFileInfo = new List<FileInfo>();
 
         private void ProfileManager_Load(object sender, EventArgs e)
-        {   
+        {
             LoadData();
         }
 
@@ -59,7 +59,6 @@ namespace file_transfer_v2
                             TxtTargetPath.Text = child.Value;
                         }
 
-
                         foreach (var decentand in child.Descendants())
                         {
                             if (decentand.Name == "File")
@@ -74,7 +73,6 @@ namespace file_transfer_v2
                             }
                         }
                     }
-
                 }
                 idirator++;
             }
@@ -90,7 +88,6 @@ namespace file_transfer_v2
                 _fileInfo.ProjectSourcePath = projectElement.Element("projectSourcePath").Value.ToString();
                 _fileInfo.ProjectTargetPath = projectElement.Element("projectTargetPath").Value.ToString();
 
-
                 foreach (var child in projectElement.Elements())
                 {
                     foreach (var decentand in child.Descendants())
@@ -102,7 +99,6 @@ namespace file_transfer_v2
                     }
                 }
                 CmbSelectProfile.Items.Add(_fileInfo.ProjectName.ToString());
-
                 lstFileInfo.Add(_fileInfo);
             }
             CmbSelectProfile.SelectedIndex = 0;
@@ -186,53 +182,73 @@ namespace file_transfer_v2
             }
             else
             {
-
-                var xlist = XElement.Load("..\\..\\..\\Database.xml").Elements("project").ToList();
-                var result = 
-
-
-                foreach (XElement projectElement in XElement.Load("..\\..\\..\\Database.xml").Elements("project"))
+                XDocument xdoc = XDocument.Load("..\\..\\..\\Database.xml");
+                int i = 0;
+                foreach (XElement projectElement in xdoc.Elements("projects"))
                 {
-                    foreach (var child in projectElement.Elements())
+                    foreach (XElement child in projectElement.Elements())
                     {
-                        if (child.Name == "projectName")
+                        if (i == CmbSelectProfile.SelectedIndex)
                         {
-                            if (child.Value == CmbSelectProfile.SelectedItem.ToString())
+                            foreach (XElement childDescendants in child.Elements().Descendants())
                             {
-                                _fileInfo.ProjectName = TxtProfileName.Text;
-                                _fileInfo.ProjectSourcePath = TxtSourcePath.Text;
-                                _fileInfo.ProjectTargetPath = TxtTargetPath.Text;
-
-                                foreach (object s in _fileInfo.ProjectFiles)
+                                //MessageBox.Show(childDescendants.Name.ToString());
+                                if (childDescendants.Name == "projectName")
                                 {
-                                    MessageBox.Show(s.ToString());
+                                    _fileInfo.ProjectName = child.Value;
                                 }
-                                foreach (var decentand in child.Descendants())
+                                if (childDescendants.Name == "projectSourcePath")
                                 {
-                                    
-                                    foreach(var childDecentand in decentand.Descendants())
+                                    _fileInfo.ProjectSourcePath = child.Value;
+                                }
+                                if (childDescendants.Name == "projectTargetPath")
+                                {
+                                    _fileInfo.ProjectTargetPath = child.Value;
+                                }
+                                if (childDescendants.Name == "ProjectFiles")
+                                {
+                                    foreach (XElement DescendentFile in childDescendants.Descendants())
                                     {
-                                        MessageBox.Show(childDecentand.Value.ToString());
-                                        if (childDecentand.Name == "Files")
-                                        {
-                                            _fileInfo.ProjectFiles.Add(decentand.Value);
-                                        }
+                                        _fileInfo.ProjectFiles.Add(DescendentFile.Value);
                                     }
+                                }
+                                if (childDescendants.Name == "File")
+                                {
+                                   // child.Remove();
                                 }
                             }
                         }
-                        
-                        
+                        i++;
                     }
+                    projectElement.Save("..\\..\\..\\Database.xml");
                 }
-
-                //editing profile in the xml file            
             }
         }
 
-        private void BtnNewProfile_Click(object sender, EventArgs e)
-        {
-            //adding new profile to xml file
+            private void BtnNewProfile_Click(object sender, EventArgs e)
+            {
+                //adding new profile to xml file
+                XDocument xdoc = XDocument.Load("..\\..\\..\\Database.xml");
+
+                var projects = new XElement("project");
+                var projectName = new XElement("projectName");
+                var projectSourcePath = new XElement("projectSourcePath");
+                var projectTargetPath = new XElement("projectTargetPath");
+                var projectFiles = new XElement("projectFiles");
+                var projectFile = new XElement("File");
+                projectName.Value = TxtProfileName.Text;
+                projectSourcePath.Value = _fileInfo.ProjectSourcePath.ToString();
+                projectTargetPath.Value = _fileInfo.ProjectTargetPath.ToString();
+
+                xdoc.Element("projects").Add(projects);
+                projects.Add(projectName, projectSourcePath, projectTargetPath, projectFiles);
+                foreach (object elements in _fileInfo.ProjectFiles)
+                {
+                    projectFile.Value = elements.ToString();
+                    projectFiles.Add(projectFile);
+                }
+                xdoc.Save("..\\..\\..\\Database.xml");
+                MessageBox.Show("new profile has been added with the following name:" + projectName.Value);
+            }
         }
     }
-}
