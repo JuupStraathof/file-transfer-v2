@@ -20,7 +20,7 @@ namespace file_transfer_v2
             InitializeComponent();
             _fileInfo = new FileInfo();
              
-    }
+        }
         List<FileInfo> lstFileInfo = new List<FileInfo>();
 
         private void BtnCopyFiles_Click(object sender, EventArgs e)
