@@ -48,6 +48,7 @@ namespace file_transfer_v2
             this.BtnNewProfile = new System.Windows.Forms.Button();
             this.GroupBox = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btnDeleteProject = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -207,7 +208,7 @@ namespace file_transfer_v2
             // 
             // BtnNewProfile
             // 
-            this.BtnNewProfile.Location = new System.Drawing.Point(87, 27);
+            this.BtnNewProfile.Location = new System.Drawing.Point(87, 26);
             this.BtnNewProfile.Name = "BtnNewProfile";
             this.BtnNewProfile.Size = new System.Drawing.Size(75, 62);
             this.BtnNewProfile.TabIndex = 11;
@@ -217,11 +218,12 @@ namespace file_transfer_v2
             // 
             // GroupBox
             // 
+            this.GroupBox.Controls.Add(this.btnDeleteProject);
             this.GroupBox.Controls.Add(this.BtnNewProfile);
             this.GroupBox.Controls.Add(this.BtnEditProfile);
             this.GroupBox.Location = new System.Drawing.Point(573, 78);
             this.GroupBox.Name = "GroupBox";
-            this.GroupBox.Size = new System.Drawing.Size(169, 111);
+            this.GroupBox.Size = new System.Drawing.Size(169, 169);
             this.GroupBox.TabIndex = 12;
             this.GroupBox.TabStop = false;
             this.GroupBox.Text = "Actions";
@@ -235,6 +237,16 @@ namespace file_transfer_v2
             this.groupBox5.TabIndex = 13;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "profile name";
+            // 
+            // btnDeleteProject
+            // 
+            this.btnDeleteProject.Location = new System.Drawing.Point(6, 95);
+            this.btnDeleteProject.Name = "btnDeleteProject";
+            this.btnDeleteProject.Size = new System.Drawing.Size(75, 63);
+            this.btnDeleteProject.TabIndex = 12;
+            this.btnDeleteProject.Text = "Delete project";
+            this.btnDeleteProject.UseVisualStyleBackColor = true;
+            this.btnDeleteProject.Click += new System.EventHandler(this.btnDeleteProject_Click);
             // 
             // ProfileManager
             // 
@@ -281,5 +293,6 @@ namespace file_transfer_v2
         private System.Windows.Forms.Button BtnNewProfile;
         private System.Windows.Forms.GroupBox GroupBox;
         private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button btnDeleteProject;
     }
 }

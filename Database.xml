@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <projects>
   <project>
     <projectName>select a project</projectName>
@@ -11,23 +11,11 @@
     </projectFiles>
   </project>
   <project>
-    <projectName>profile 123</projectName>
-    <projectSourcePath>C:\Users\gigaj\Desktop\stage</projectSourcePath>
-    <projectTargetPath>C:\Users\gigaj\Desktop\dummy target folder</projectTargetPath>
-    <projectFiles>
-      <File>urenRegistratie juup straathof.xlsx</File>
-      <File>PVB16 B1K1 - Format Eindverslag AO.docx</File>
-      <File>PVB16 Examenafspraken document AO.docx</File>
-      <File>testPart.ipt</File>
-      <File>urenRegistratie juup straathof.xlsx</File>
-    </projectFiles>
-  </project>
-  <project>
-    <projectName>project 2</projectName>
+    <projectName>project 1</projectName>
     <projectSourcePath>C:\Users\gigaj\Desktop\dummy source folder</projectSourcePath>
     <projectTargetPath>C:\Users\gigaj\Desktop\dummy target folder</projectTargetPath>
     <projectFiles>
-      <File>file4.txt</File>
+      <File>file1.txt</File>
       <File>file2.txt</File>
       <File>file3.txt</File>
       <File>file4.txt</File>
