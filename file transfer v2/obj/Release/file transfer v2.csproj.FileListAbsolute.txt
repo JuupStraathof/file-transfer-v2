@@ -1,0 +1,11 @@
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Release\file transfer v2.exe.config
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Release\file transfer v2.exe
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Release\file transfer v2.pdb
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Release\file transfer v2.csproj.AssemblyReference.cache
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Release\file_transfer_v2.FrmSelectProfile.resources
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Release\file_transfer_v2.ProfileManager.resources
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Release\file_transfer_v2.Properties.Resources.resources
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Release\file transfer v2.csproj.GenerateResource.cache
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Release\file transfer v2.csproj.CoreCompileInputs.cache
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Release\file transfer v2.exe
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Release\file transfer v2.pdb

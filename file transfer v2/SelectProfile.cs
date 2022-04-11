@@ -22,7 +22,7 @@ namespace file_transfer_v2
              
         }
         List<FileInfo> lstFileInfo = new List<FileInfo>();
-        public string xmlPath = "..\\..\\..\\Database.xml";
+        public string xmlPath = "Database.xml";
         private void BtnCopyFiles_Click(object sender, EventArgs e)
         {
             bool fileFlag = true;
