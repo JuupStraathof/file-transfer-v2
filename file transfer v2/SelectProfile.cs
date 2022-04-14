@@ -14,15 +14,15 @@ namespace file_transfer_v2
 {
     public partial class FrmSelectProfile : Form
     {
-        private FileInfo _fileInfo;
+        public string xmlPath = "Database.xml";
+        public Project project = new Project();
+        public DbDocument document1;
+        
         public FrmSelectProfile()
         {
             InitializeComponent();
-            _fileInfo = new FileInfo();
-             
         }
-        List<FileInfo> lstFileInfo = new List<FileInfo>();
-        public string xmlPath = "Database.xml";
+                   
         private void BtnCopyFiles_Click(object sender, EventArgs e)
         {
             bool fileFlag = true;
@@ -32,46 +32,32 @@ namespace file_transfer_v2
             }
             else
             {
-                foreach (string s in _fileInfo.ProjectFiles)
+                foreach (string s in project.ProjectFiles)
                 {
-                    if (!File.Exists(_fileInfo.ProjectSourcePath + "/" + s))
+                    //checks if files exists
+                    if (!File.Exists(project.ProjectSourcePath + "/" + s))
                     {
                         fileFlag = false;
                     }
                 }
-                if (Directory.Exists(_fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString()))
+
+                if (fileFlag == true)
+                {
+                    Directory.CreateDirectory(project.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString());
+                    foreach (string s in project.ProjectFiles)
+                    {
+                        File.Copy(project.ProjectSourcePath + "/" + s, project.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd") + "/" + s, true);
+                    }
+                    MessageBox.Show("copying of files has been completed");
+                }
+                else
                 {
                     if (fileFlag == true)
                     {
-                        var MessageCaption = "warning";
-                        var messageString = "the following directory already exists: " + _fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString() + "\n do you want to overwrite it?";
-                        var result = MessageBox.Show(messageString, MessageCaption, MessageBoxButtons.YesNo);
-
-                        if (result == DialogResult.No)
-                        {
-                            MessageBox.Show("the copying of files has been aborted");
-                        }
-
-                        if (result == DialogResult.Yes)
-                        {
-                            Directory.CreateDirectory(_fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString());
-                            foreach (string s in _fileInfo.ProjectFiles)
-                            {
-                                //bug can't find path
-                                File.Copy(_fileInfo.ProjectSourcePath + "/" + s, _fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd") + "/" + s, true);
-                            }
-                            MessageBox.Show("copying of files has been completed");
-                        }
-                    }
-                }
-                else
-                { 
-                    if (fileFlag == true)
-                    {
-                        Directory.CreateDirectory(_fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString());
-                        foreach (string s in _fileInfo.ProjectFiles)
-                        { //can't find file path 
-                            File.Copy(_fileInfo.ProjectSourcePath + "/" + s, _fileInfo.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd") + "/" + s, true);
+                        Directory.CreateDirectory(project.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString());
+                        foreach (string s in project.ProjectFiles)
+                        {   
+                            File.Copy(project.ProjectSourcePath + "/" + s, project.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd") + "/" + s, true);
                         }
                         MessageBox.Show("copying of files has been completed");
                     }
@@ -85,9 +71,9 @@ namespace file_transfer_v2
 
         private void BtnEditProfile_Click(object sender, EventArgs e)
         {
-            Form ProfileManagerForm = new ProfileManager();
-
+            ProfileManager ProfileManagerForm = new ProfileManager(project, document1);
             ProfileManagerForm.ShowDialog();
+            LoadData();
         }
         
 
@@ -95,28 +81,27 @@ namespace file_transfer_v2
         {
             int projectId = CmbSelectProfile.SelectedIndex;
             int idirator = 0;
-            _fileInfo.ProjectFiles.Clear();
+            project.ProjectFiles.Clear();
             //reading data from xml
-            foreach (XElement projectElement in XElement.Load(xmlPath).Elements("project"))
+            foreach (XElement projectElement in document1.document.Elements("project"))
             {
                 if (idirator == projectId)
                 {
-                    //execute stuff
                     foreach (var child in projectElement.Elements())
                     {
                         if (child.Name == "projectName")
                         {
-                            _fileInfo.ProjectName = child.Value;
+                            project.ProjectName = child.Value;
                         }
 
                         if (child.Name == "projectSourcePath")
                         {
-                            _fileInfo.ProjectSourcePath = child.Value;
+                            project.ProjectSourcePath = child.Value;
                         }
 
                         if (child.Name == "projectTargetPath")
                         {
-                            _fileInfo.ProjectTargetPath = child.Value;
+                            project.ProjectTargetPath = child.Value;
                         }
 
                         if (child.Name == "projectFiles")
@@ -125,7 +110,7 @@ namespace file_transfer_v2
                             {
                                 if (decentand.Name == "File")
                                 {
-                                    _fileInfo.ProjectFiles.Add(decentand.Value);
+                                    project.ProjectFiles.Add(decentand.Value);
                                 }
                             }
                         }
@@ -137,26 +122,26 @@ namespace file_transfer_v2
         private void LoadData()
         {
             CmbSelectProfile.Items.Clear();
-            foreach (XElement projectElement in XElement.Load(xmlPath).Elements("project"))
+            foreach (XElement projectElement in document1.document.Elements("projects").Elements("project"))
             {
-                _fileInfo.ProjectName = projectElement.Element("projectName").Value.ToString();
-                _fileInfo.ProjectSourcePath = projectElement.Element("projectSourcePath").Value.ToString();
-                _fileInfo.ProjectTargetPath = projectElement.Element("projectTargetPath").Value.ToString();
-
+                project.ProjectName = projectElement.Element("projectName").Value.ToString();
+                project.ProjectSourcePath = projectElement.Element("projectSourcePath").Value.ToString();
+                project.ProjectTargetPath = projectElement.Element("projectTargetPath").Value.ToString();
+                
                 foreach (var child in projectElement.Elements())
                 {
                     foreach (var decentand in child.Descendants())
                     {
                         if (decentand.Name == "File")
                         {
-                            _fileInfo.ProjectFiles.Add(decentand.Value);
+                            project.ProjectFiles.Add(decentand.Value);
                         }
                     }
                 }
-                CmbSelectProfile.Items.Add(_fileInfo.ProjectName.ToString());
-                lstFileInfo.Add(_fileInfo);
+                CmbSelectProfile.Items.Add(project.ProjectName.ToString());
             }
-            CmbSelectProfile.SelectedIndex = 0;
+            int index = CmbSelectProfile.Items.Count;
+            CmbSelectProfile.SelectedIndex = index - 1;
         }
         private void DatabaseExists()
         {
@@ -195,6 +180,11 @@ namespace file_transfer_v2
 
                 MessageBox.Show("the xml file was not found, created a new one");
             }
+            else
+            {
+                 DbDocument document = new DbDocument();
+                 document1 = document;
+            }
         }
      
         private void FrmSelectProfile_Load(object sender, EventArgs e)
@@ -206,15 +196,6 @@ namespace file_transfer_v2
         private void BtnReloadDb_Click(object sender, EventArgs e)
         {
             LoadData();
-        }
-        
-        public class FileInfo
-        {
-            // class for making objects to read and write to xml file
-            public string ProjectName { get; set; }
-            public List<string> ProjectFiles = new List<string>();
-            public string ProjectSourcePath { get; set; }
-            public string ProjectTargetPath { get; set; }
         }
     }
 }

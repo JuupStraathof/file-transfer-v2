@@ -46,6 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Document.cs" />
+    <Compile Include="NewProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewProfile.Designer.cs">
+      <DependentUpon>NewProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Project.cs" />
     <Compile Include="SelectProfile.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +68,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DbDocument.cs" />
+    <EmbeddedResource Include="NewProfile.resx">
+      <DependentUpon>NewProfile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SelectProfile.resx">
       <DependentUpon>SelectProfile.cs</DependentUpon>
     </EmbeddedResource>

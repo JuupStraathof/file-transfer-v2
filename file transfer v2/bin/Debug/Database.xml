@@ -11,7 +11,7 @@
     </projectFiles>
   </project>
   <project>
-    <projectName>project 1</projectName>
+    <projectName>project A</projectName>
     <projectSourcePath>C:\Users\gigaj\Desktop\dummy source folder</projectSourcePath>
     <projectTargetPath>C:\Users\gigaj\Desktop\dummy target folder</projectTargetPath>
     <projectFiles>
@@ -19,19 +19,7 @@
       <File>file2.txt</File>
       <File>file3.txt</File>
       <File>file4.txt</File>
-    </projectFiles>
-  </project>
-  <project>
-    <projectName>copyTestProject</projectName>
-    <projectSourcePath>C:\Users\gigaj\source\repos\copy testProgram\copy testProgram\bin\Debug\net5.0</projectSourcePath>
-    <projectTargetPath>C:\Users\gigaj\Desktop\copytestProject</projectTargetPath>
-    <projectFiles>
-      <File>copy testProgram.deps.json</File>
-      <File>copy testProgram.dll</File>
-      <File>copy testProgram.exe</File>
-      <File>copy testProgram.pdb</File>
-      <File>copy testProgram.runtimeconfig.dev.json</File>
-      <File>copy testProgram.runtimeconfig.json</File>
+      <File>file5.txt</File>
     </projectFiles>
   </project>
 </projects>

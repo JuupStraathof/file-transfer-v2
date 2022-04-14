@@ -13,28 +13,31 @@ using System.IO;
 namespace file_transfer_v2
 {
     public partial class ProfileManager : Form
-    {
-        private FileInfo _fileInfo;
-        public ProfileManager()
+    { 
+        Project project1;
+        DbDocument xdocument;
+        public ProfileManager(Project project, DbDocument document)
         {
             InitializeComponent();
-            _fileInfo = new FileInfo();
-
+              project1 = project;
+            xdocument = document;
         }
-        List<FileInfo> lstFileInfo = new List<FileInfo>();
         public string xmlPath = "Database.xml";
+        
         private void ProfileManager_Load(object sender, EventArgs e)
         {
             LoadData();
         }
 
         private void CmbSelectProfile_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        { 
             int projectId = CmbSelectProfile.SelectedIndex;
             int projectCount = 0;
-            _fileInfo.ProjectFiles.Clear();
+
+            project1.ProjectFiles.Clear();  
             LsvSelectedFiles.Items.Clear();
             //reading data from xml
+         
             foreach (XElement projectElement in XElement.Load(xmlPath).Elements("project"))
             {
                 if (projectCount == projectId)
@@ -43,19 +46,19 @@ namespace file_transfer_v2
                     {
                         if (child.Name == "projectName")
                         {
-                            _fileInfo.ProjectName = child.Value;
+                            project1.ProjectName = child.Value;
                             TxtProfileName.Text = child.Value;
                         }
 
                         if (child.Name == "projectSourcePath")
                         {
-                            _fileInfo.ProjectSourcePath = child.Value;
+                            project1.ProjectSourcePath = child.Value;
                             TxtSourcePath.Text = child.Value;
                         }
 
                         if (child.Name == "projectTargetPath")
                         {
-                            _fileInfo.ProjectTargetPath = child.Value;
+                            project1.ProjectTargetPath = child.Value;
                             TxtTargetPath.Text = child.Value;
                         }
 
@@ -65,7 +68,7 @@ namespace file_transfer_v2
                             {
                                 //adding files to listview
                                 //splitting the file names on the . so we can seperate them into 2 colums
-                                _fileInfo.ProjectFiles.Add(decentand.Value);
+                                project1.ProjectFiles.Add(decentand.Value);
                                 string s = decentand.Value;
                                 string[] extentions = s.Split('.');
                                 var newRow = new string[] { extentions[0], "." + extentions[1] };
@@ -84,15 +87,15 @@ namespace file_transfer_v2
         private void LoadData()
         {
             //clearing file list and combobox to prevent double data writing
-            _fileInfo.ProjectFiles.Clear();
+            project1.ProjectFiles.Clear();
             CmbSelectProfile.Items.Clear();
 
             foreach (XElement projectElement in XElement.Load(xmlPath).Elements("project"))
             {
                 //filling the properties with the values
-                _fileInfo.ProjectName = projectElement.Element("projectName").Value.ToString();
-                _fileInfo.ProjectSourcePath = projectElement.Element("projectSourcePath").Value.ToString();
-                _fileInfo.ProjectTargetPath = projectElement.Element("projectTargetPath").Value.ToString();
+                project1.ProjectName = projectElement.Element("projectName").Value.ToString();
+                project1.ProjectSourcePath = projectElement.Element("projectSourcePath").Value.ToString();
+                project1.ProjectTargetPath = projectElement.Element("projectTargetPath").Value.ToString();
 
                 foreach (var child in projectElement.Elements())
                 {
@@ -100,22 +103,15 @@ namespace file_transfer_v2
                     {
                         if (decentand.Name == "File")
                         {
-                            _fileInfo.ProjectFiles.Add(decentand.Value);
+                            project1.ProjectFiles.Add(decentand.Value);
                         }
                     }
                 }
-                CmbSelectProfile.Items.Add(_fileInfo.ProjectName.ToString());
-                lstFileInfo.Add(_fileInfo);
+                CmbSelectProfile.Items.Add(project1.ProjectName.ToString());
             }
-            CmbSelectProfile.SelectedIndex = 0;
-        }
-        public class FileInfo
-        {
-            // class for making objects to read and write to xml file
-            public string ProjectName { get; set; }
-            public List<string> ProjectFiles = new List<string>();
-            public string ProjectSourcePath { get; set; }
-            public string ProjectTargetPath { get; set; }
+            int index = 0;
+            index = CmbSelectProfile.Items.Count;
+            CmbSelectProfile.SelectedIndex = index - 1;
         }
 
         private void BtnSelectSourcePath_Click(object sender, EventArgs e)
@@ -124,8 +120,8 @@ namespace file_transfer_v2
             {
                 if (sourceFileBrowser.ShowDialog() == DialogResult.OK)
                 {
-                    _fileInfo.ProjectSourcePath = sourceFileBrowser.SelectedPath.ToString();
-                    TxtSourcePath.Text = _fileInfo.ProjectSourcePath.ToString();
+                    project1.ProjectSourcePath = sourceFileBrowser.SelectedPath.ToString();
+                    TxtSourcePath.Text = project1.ProjectSourcePath.ToString();
                 }
             }
         }
@@ -137,15 +133,15 @@ namespace file_transfer_v2
                 if (targetFolderBrowser.ShowDialog() == DialogResult.OK)
                 {
                     TxtTargetPath.Text = targetFolderBrowser.SelectedPath.ToString();
-                    _fileInfo.ProjectTargetPath = targetFolderBrowser.SelectedPath.ToString();
+                    project1.ProjectTargetPath = targetFolderBrowser.SelectedPath.ToString();
                 }
             }
         }
 
         private void BtnSelectFiles_Click(object sender, EventArgs e)
         {
-            _fileInfo.ProjectSourcePath = TxtSourcePath.Text;
-            if (_fileInfo.ProjectSourcePath == null)
+            project1.ProjectSourcePath = TxtSourcePath.Text;
+            if (project1.ProjectSourcePath == null)
             {
                 MessageBox.Show("no folder selected pick a source folder first");
             }
@@ -153,20 +149,20 @@ namespace file_transfer_v2
             {
                 using (OpenFileDialog selectFiles = new OpenFileDialog())
                 {
-                    selectFiles.InitialDirectory = _fileInfo.ProjectSourcePath.ToString();
+                    selectFiles.InitialDirectory = project1.ProjectSourcePath.ToString();
                     selectFiles.Multiselect = true;
 
                     if (selectFiles.ShowDialog() == DialogResult.OK)
                     {
-                        _fileInfo.ProjectFiles.Clear();
+                        project1.ProjectFiles.Clear();
                         LsvSelectedFiles.Items.Clear();
 
                         foreach (object obj in selectFiles.SafeFileNames)
                         {
-                            _fileInfo.ProjectFiles.Add(obj.ToString());
+                            project1.ProjectFiles.Add(obj.ToString());
                         }
 
-                        foreach (string s in _fileInfo.ProjectFiles)
+                        foreach (string s in project1.ProjectFiles)
                         {
                             string[] extentions = s.Split('.');
                             var newRow = new string[] { extentions[0], "." + extentions[1] };
@@ -190,7 +186,7 @@ namespace file_transfer_v2
             {
                 if (Directory.Exists(TxtSourcePath.Text) && Directory.Exists(TxtTargetPath.Text))
                 {
-                    foreach (string s in _fileInfo.ProjectFiles)
+                    foreach (string s in project1.ProjectFiles)
                     {
                         if (!File.Exists(TxtSourcePath.Text + "/" + s))
                         {
@@ -234,7 +230,7 @@ namespace file_transfer_v2
                                     {
                                         projectElements.RemoveNodes();
 
-                                        foreach (object obj in _fileInfo.ProjectFiles)
+                                        foreach (object obj in project1.ProjectFiles)
                                         {
                                             projectElements.Add(new XElement("File", obj.ToString()));
                                         }
@@ -245,8 +241,8 @@ namespace file_transfer_v2
                         }
 
                         doc.Save(xmlPath);
-                        MessageBox.Show("the profile has been changed");
                         LoadData();
+                        BtnEditProfile.Text = "changes have been saved";
                     }
                 }
 
@@ -259,59 +255,10 @@ namespace file_transfer_v2
 
         private void BtnNewProfile_Click(object sender, EventArgs e)
         {
-            bool fileFlag = true;
-            foreach (string s in _fileInfo.ProjectFiles)
-            {
-                if (!File.Exists(TxtSourcePath.Text + "/" + s))
-                {
-                    fileFlag = false;
-                }
-            }
+            Form frmNewProfile = new NewProfile(project1, xdocument.document);
 
-            if (fileFlag == false)
-            {
-                MessageBox.Show("some or all files could not be found");
-            }
-
-            else
-            {
-                if (Directory.Exists(TxtSourcePath.Text) && Directory.Exists(TxtTargetPath.Text))
-                {
-                    //loading document
-                    XDocument xdoc = XDocument.Load(xmlPath);
-
-                    //creating new elements
-                    var projects = new XElement("project");
-                    var projectName = new XElement("projectName");
-                    var projectSourcePath = new XElement("projectSourcePath");
-                    var projectTargetPath = new XElement("projectTargetPath");
-                    var projectFiles = new XElement("projectFiles");
-
-                    //giving values to elements
-                    projectName.Value = TxtProfileName.Text;
-                    projectSourcePath.Value = _fileInfo.ProjectSourcePath.ToString();
-                    projectTargetPath.Value = _fileInfo.ProjectTargetPath.ToString();
-
-                    //adding elements to file
-                    xdoc.Element("projects").Add(projects);
-                    projects.Add(projectName, projectSourcePath, projectTargetPath, projectFiles);
-                    foreach (object elements in _fileInfo.ProjectFiles)
-                    {
-                        //creating new child element for the individual files
-                        //for loop is used to prevent wrong data writing
-                        var projectFile = new XElement("File");
-                        projectFile.Value = elements.ToString();
-                        projectFiles.Add(projectFile);
-                    }
-                    xdoc.Save(xmlPath);
-                    MessageBox.Show("new profile has been added with the following name: " + projectName.Value);
-                    LoadData();
-                }
-                else
-                {
-                    MessageBox.Show("one or both given paths do not exist");
-                }
-            }
+            frmNewProfile.ShowDialog();
+            LoadData();
         }
 
         private void btnDeleteProject_Click(object sender, EventArgs e)
@@ -322,32 +269,21 @@ namespace file_transfer_v2
             }
             else
             {
-                var MessageCaption = "warning";
-                var messageString = "are you sure you want to delete the following project: " + CmbSelectProfile.SelectedItem.ToString() + "\n this action cannot be undone are you sure you want to continue?";
-                var result = MessageBox.Show(messageString, MessageCaption, MessageBoxButtons.YesNo);
-
-                if (result == DialogResult.No)
+                var doc = XDocument.Load(xmlPath);
+                var projectsElement = doc.Elements("projects");
+                int projectcount = 0;
+                foreach (XElement projectElement in projectsElement.Elements("project"))
                 {
-                    MessageBox.Show("the deletion has been cancelled");
-                }
-                if (result == DialogResult.Yes)
-                {
-                    var doc = XDocument.Load(xmlPath);
-                    var projectsElement = doc.Elements("projects");
-                    int projectcount = 0;
-                    foreach (XElement projectElement in projectsElement.Elements("project"))
+                    if (projectcount == CmbSelectProfile.SelectedIndex)
                     {
-                        if (projectcount == CmbSelectProfile.SelectedIndex)
-                        {
-                            
-                            projectElement.Remove();
-                        }
-                        projectcount++;
+                        projectElement.Remove();
                     }
-                    doc.Save(xmlPath);
-                    MessageBox.Show("the project has been deleted");
-                    LoadData();
+                    projectcount++;
                 }
+                doc.Save(xmlPath);
+                LoadData();
+                btnDeleteProject.Text = "profile deleted";
+                
             }
         }
     }

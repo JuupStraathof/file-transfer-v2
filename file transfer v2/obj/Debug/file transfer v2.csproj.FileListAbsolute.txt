@@ -9,3 +9,4 @@ C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file tra
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.csproj.CoreCompileInputs.cache
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.exe
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.pdb
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file_transfer_v2.NewProfile.resources
