@@ -72,6 +72,7 @@ namespace file_transfer_v2
             // 
             // CmbSelectProfile
             // 
+            this.CmbSelectProfile.BackColor = System.Drawing.SystemColors.Window;
             this.CmbSelectProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CmbSelectProfile.FormattingEnabled = true;
             this.CmbSelectProfile.Location = new System.Drawing.Point(7, 31);
