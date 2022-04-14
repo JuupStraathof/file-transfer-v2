@@ -63,7 +63,7 @@ namespace file_transfer_v2
             this.LsvSelectedFiles.GridLines = true;
             this.LsvSelectedFiles.HideSelection = false;
             this.LsvSelectedFiles.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.LsvSelectedFiles.Location = new System.Drawing.Point(6, 30);
+            this.LsvSelectedFiles.Location = new System.Drawing.Point(13, 30);
             this.LsvSelectedFiles.Name = "LsvSelectedFiles";
             this.LsvSelectedFiles.Size = new System.Drawing.Size(345, 152);
             this.LsvSelectedFiles.TabIndex = 1;
@@ -73,7 +73,7 @@ namespace file_transfer_v2
             // FileName
             // 
             this.FileName.Text = "File name";
-            this.FileName.Width = 221;
+            this.FileName.Width = 179;
             // 
             // FileExtention
             // 

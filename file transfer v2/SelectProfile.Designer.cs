@@ -29,10 +29,12 @@ namespace file_transfer_v2
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.BtnEditProfile = new System.Windows.Forms.Button();
             this.BtnCopyFiles = new System.Windows.Forms.Button();
             this.CmbSelectProfile = new System.Windows.Forms.ComboBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,16 +45,16 @@ namespace file_transfer_v2
             this.groupBox1.Controls.Add(this.CmbSelectProfile);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(176, 156);
+            this.groupBox1.Size = new System.Drawing.Size(188, 183);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "select a profile";
             // 
             // BtnEditProfile
             // 
-            this.BtnEditProfile.Location = new System.Drawing.Point(7, 105);
+            this.BtnEditProfile.Location = new System.Drawing.Point(6, 122);
             this.BtnEditProfile.Name = "BtnEditProfile";
-            this.BtnEditProfile.Size = new System.Drawing.Size(160, 38);
+            this.BtnEditProfile.Size = new System.Drawing.Size(175, 55);
             this.BtnEditProfile.TabIndex = 2;
             this.BtnEditProfile.Text = "Profile manager";
             this.BtnEditProfile.UseVisualStyleBackColor = true;
@@ -62,7 +64,7 @@ namespace file_transfer_v2
             // 
             this.BtnCopyFiles.Location = new System.Drawing.Point(7, 61);
             this.BtnCopyFiles.Name = "BtnCopyFiles";
-            this.BtnCopyFiles.Size = new System.Drawing.Size(160, 38);
+            this.BtnCopyFiles.Size = new System.Drawing.Size(175, 55);
             this.BtnCopyFiles.TabIndex = 1;
             this.BtnCopyFiles.Text = "Copy files";
             this.BtnCopyFiles.UseVisualStyleBackColor = true;
@@ -74,15 +76,20 @@ namespace file_transfer_v2
             this.CmbSelectProfile.FormattingEnabled = true;
             this.CmbSelectProfile.Location = new System.Drawing.Point(7, 31);
             this.CmbSelectProfile.Name = "CmbSelectProfile";
-            this.CmbSelectProfile.Size = new System.Drawing.Size(160, 24);
+            this.CmbSelectProfile.Size = new System.Drawing.Size(175, 24);
             this.CmbSelectProfile.TabIndex = 0;
             this.CmbSelectProfile.SelectedIndexChanged += new System.EventHandler(this.CmbSelectProfile_SelectedIndexChanged);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 5000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // FrmSelectProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(197, 179);
+            this.ClientSize = new System.Drawing.Size(212, 207);
             this.Controls.Add(this.groupBox1);
             this.Name = "FrmSelectProfile";
             this.Text = "Select Profile";
@@ -98,6 +105,7 @@ namespace file_transfer_v2
         private System.Windows.Forms.Button BtnEditProfile;
         private System.Windows.Forms.Button BtnCopyFiles;
         private System.Windows.Forms.ComboBox CmbSelectProfile;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

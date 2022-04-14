@@ -28,7 +28,7 @@ namespace file_transfer_v2
             bool fileFlag = true;
             if (CmbSelectProfile.SelectedIndex == 0)
             {
-                MessageBox.Show("you can't copy this preset");
+                BtnCopyFiles.Text = "can't copy this preset";
             }
             else
             {
@@ -48,7 +48,8 @@ namespace file_transfer_v2
                     {
                         File.Copy(project.ProjectSourcePath + "/" + s, project.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd") + "/" + s, true);
                     }
-                    MessageBox.Show("copying of files has been completed");
+                    BtnCopyFiles.Text = "copying of the files has been completed";
+                    timer1.Start();
                 }
                 else
                 {
@@ -59,7 +60,8 @@ namespace file_transfer_v2
                         {   
                             File.Copy(project.ProjectSourcePath + "/" + s, project.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd") + "/" + s, true);
                         }
-                        MessageBox.Show("copying of files has been completed");
+                        BtnCopyFiles.Text = "copying of the files has been completed";
+                        timer1.Start();
                     }
                 }
                 if (fileFlag == false)
@@ -83,40 +85,43 @@ namespace file_transfer_v2
             int idirator = 0;
             project.ProjectFiles.Clear();
             //reading data from xml
-            foreach (XElement projectElement in document1.document.Elements("project"))
+            foreach (XElement projects in document1.document.Elements("projects"))
             {
-                if (idirator == projectId)
+                foreach (XElement projectElement in projects.Elements("project"))
                 {
-                    foreach (var child in projectElement.Elements())
+                    if (idirator == projectId)
                     {
-                        if (child.Name == "projectName")
+                        foreach (var child in projectElement.Elements())
                         {
-                            project.ProjectName = child.Value;
-                        }
-
-                        if (child.Name == "projectSourcePath")
-                        {
-                            project.ProjectSourcePath = child.Value;
-                        }
-
-                        if (child.Name == "projectTargetPath")
-                        {
-                            project.ProjectTargetPath = child.Value;
-                        }
-
-                        if (child.Name == "projectFiles")
-                        {
-                            foreach (var decentand in child.Descendants())
+                            if (child.Name == "projectName")
                             {
-                                if (decentand.Name == "File")
+                                project.ProjectName = child.Value;
+                            }
+
+                            if (child.Name == "projectSourcePath")
+                            {
+                                project.ProjectSourcePath = child.Value;
+                            }
+
+                            if (child.Name == "projectTargetPath")
+                            {
+                                project.ProjectTargetPath = child.Value;
+                            }
+
+                            if (child.Name == "projectFiles")
+                            {
+                                foreach (var decentand in child.Descendants())
                                 {
-                                    project.ProjectFiles.Add(decentand.Value);
+                                    if (decentand.Name == "File")
+                                    {
+                                        project.ProjectFiles.Add(decentand.Value);
+                                    }
                                 }
                             }
                         }
                     }
+                    idirator++;
                 }
-                idirator++;
             }
         }
         private void LoadData()
@@ -196,6 +201,12 @@ namespace file_transfer_v2
         private void BtnReloadDb_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            BtnCopyFiles.Text = "Copy files";
+            timer1.Stop();
         }
     }
 }

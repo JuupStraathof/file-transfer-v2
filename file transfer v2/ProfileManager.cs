@@ -243,6 +243,7 @@ namespace file_transfer_v2
                         doc.Save(xmlPath);
                         LoadData();
                         BtnEditProfile.Text = "changes have been saved";
+                        timer1.Start();
                     }
                 }
 
@@ -283,8 +284,17 @@ namespace file_transfer_v2
                 doc.Save(xmlPath);
                 LoadData();
                 btnDeleteProject.Text = "profile deleted";
+                timer1.Start();
+                
                 
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            BtnEditProfile.Text = "Save changes";
+            btnDeleteProject.Text = "Delete project";
+            timer1.Stop();
         }
     }
 }

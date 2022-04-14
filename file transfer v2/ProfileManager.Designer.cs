@@ -29,6 +29,7 @@ namespace file_transfer_v2
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.CmbSelectProfile = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -48,6 +49,7 @@ namespace file_transfer_v2
             this.BtnNewProfile = new System.Windows.Forms.Button();
             this.btnDeleteProject = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -235,6 +237,11 @@ namespace file_transfer_v2
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "profile name";
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 5000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // ProfileManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -281,5 +288,6 @@ namespace file_transfer_v2
         private System.Windows.Forms.Button BtnNewProfile;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button btnDeleteProject;
+        private System.Windows.Forms.Timer timer1;
     }
 }
