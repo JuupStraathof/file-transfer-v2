@@ -58,7 +58,9 @@ namespace file_transfer_v2
             // 
             // CmbSelectProfile
             // 
+            this.CmbSelectProfile.BackColor = System.Drawing.SystemColors.Window;
             this.CmbSelectProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbSelectProfile.ForeColor = System.Drawing.SystemColors.WindowText;
             this.CmbSelectProfile.FormattingEnabled = true;
             this.CmbSelectProfile.Location = new System.Drawing.Point(6, 21);
             this.CmbSelectProfile.Name = "CmbSelectProfile";
@@ -192,7 +194,7 @@ namespace file_transfer_v2
             // 
             // BtnEditProfile
             // 
-            this.BtnEditProfile.Location = new System.Drawing.Point(554, 321);
+            this.BtnEditProfile.Location = new System.Drawing.Point(554, 317);
             this.BtnEditProfile.Name = "BtnEditProfile";
             this.BtnEditProfile.Size = new System.Drawing.Size(102, 62);
             this.BtnEditProfile.TabIndex = 7;
