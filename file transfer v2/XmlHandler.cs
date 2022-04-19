@@ -257,7 +257,7 @@ namespace file_transfer_v2
                     }
                     else
                     {
-                        var projectsElement = document.FirstNode as XElement;
+                        var projectsElement = document.Elements();
                         var projects = projectsElement.Elements();
 
                         int projectCount = 0;

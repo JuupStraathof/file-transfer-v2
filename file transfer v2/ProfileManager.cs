@@ -23,7 +23,8 @@ namespace file_transfer_v2
         public string xmlPath = "Database.xml";
         
         private void ProfileManager_Load(object sender, EventArgs e)
-        { 
+        {
+            CmbSelectProfile.Items.Clear();
             foreach (object obj in XmlHandler.ProfileNameList)
             {
                 CmbSelectProfile.Items.Add(obj.ToString());
@@ -103,6 +104,14 @@ namespace file_transfer_v2
             XmlHandler.EditProfile(projectId);
             timer1.Start();
             BtnEditProfile.Text = "saved changes";
+            CmbSelectProfile.Items.Clear();
+            XmlHandler.GetNames();
+            foreach (object obj in XmlHandler.ProfileNameList)
+            {
+                CmbSelectProfile.Items.Add(obj.ToString());
+                int CmbId = CmbSelectProfile.Items.Count;
+                CmbSelectProfile.SelectedIndex = CmbId - 1;
+            }
         }
 
         private void BtnNewProfile_Click(object sender, EventArgs e)
@@ -118,7 +127,6 @@ namespace file_transfer_v2
                 int CmbId = CmbSelectProfile.Items.Count;
                 CmbSelectProfile.SelectedIndex = CmbId - 1;
             }
-
         }
 
         private void btnDeleteProject_Click(object sender, EventArgs e)

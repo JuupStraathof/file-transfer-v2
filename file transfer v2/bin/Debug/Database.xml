@@ -43,7 +43,7 @@
     </projectFiles>
   </project>
   <project>
-    <projectName>Console Project</projectName>
+    <projectName>Console application</projectName>
     <projectSourcePath>C:\Users\gigaj\source\repos\copy testProgram\copy testProgram\bin\Debug\net5.0</projectSourcePath>
     <projectTargetPath>C:\Users\gigaj\Desktop\console Release</projectTargetPath>
     <projectFiles>
@@ -54,5 +54,11 @@
       <File>copy testProgram.runtimeconfig.dev.json</File>
       <File>copy testProgram.runtimeconfig.json</File>
     </projectFiles>
+  </project>
+  <project>
+    <projectName>Profile E</projectName>
+    <projectSourcePath />
+    <projectTargetPath />
+    <projectFiles />
   </project>
 </projects>

@@ -39,6 +39,14 @@ namespace file_transfer_v2
             Form ProfileManager = new ProfileManager(xmlHandler);
 
             ProfileManager.ShowDialog();
+            CmbSelectProfile.Items.Clear();
+            xmlHandler.GetNames();
+            foreach (object obj in xmlHandler.ProfileNameList)
+            {
+                CmbSelectProfile.Items.Add(obj.ToString());
+                int CmbId = CmbSelectProfile.Items.Count;
+                CmbSelectProfile.SelectedIndex = CmbId - 1;
+            }
         }
         
 
