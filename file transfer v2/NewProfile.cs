@@ -12,19 +12,19 @@ namespace file_transfer_v2
 {
     public partial class NewProfile : Form
     {
-        private XmlHandler xmlHandler;
+        public XmlHandler _xmlHandler;
         public NewProfile(XmlHandler xmlHandler1)
         {
             InitializeComponent();
-            xmlHandler = xmlHandler1;
+            _xmlHandler = xmlHandler1;
         }
 
         private void BtnCreateNewProfile_Click(object sender, EventArgs e)
         {
             if (TxtNewProfileName.Text != "")
             {
-                xmlHandler.project.ProjectName = TxtNewProfileName.Text;
-                xmlHandler.CreateNewProfile();
+                _xmlHandler.project.ProjectName = TxtNewProfileName.Text;
+                _xmlHandler.CreateNewProfile();
                 this.Close();
             }
             else
@@ -33,7 +33,6 @@ namespace file_transfer_v2
                 timer1.Start();
                 
             }
-           
         }
 
         private void timer1_Tick(object sender, EventArgs e)

@@ -9,23 +9,25 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.IO;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using Ookii.Dialogs.WinForms;
 
 namespace file_transfer_v2
 {
     public partial class ProfileManager : Form
     {
-         private XmlHandler XmlHandler;
+        public XmlHandler _XmlHandler;
+        public string xmlPath = "Database.xml";
         public ProfileManager(XmlHandler xmlHandler1)
         {
             InitializeComponent();
-            XmlHandler = xmlHandler1;
+            _XmlHandler = xmlHandler1;
         }
-        public string xmlPath = "Database.xml";
-        
+
         private void ProfileManager_Load(object sender, EventArgs e)
         {
             CmbSelectProfile.Items.Clear();
-            foreach (object obj in XmlHandler.ProfileNameList)
+            foreach (object obj in _XmlHandler.ProfileNameList)
             {
                 CmbSelectProfile.Items.Add(obj.ToString());
                 int CmbId = CmbSelectProfile.Items.Count;
@@ -35,32 +37,36 @@ namespace file_transfer_v2
         
         private void BtnSelectSourcePath_Click(object sender, EventArgs e)
         {
-            using (FolderBrowserDialog sourceFileBrowser = new FolderBrowserDialog() { Description = "select the debug folder" })
+            var openFolder = new VistaFolderBrowserDialog();
+            openFolder.Description = "Select the source folder";
+            openFolder.UseDescriptionForTitle = true;
+            openFolder.SelectedPath = TxtSourcePath.Text + "/";
+
+            if (openFolder.ShowDialog() == DialogResult.OK)
             {
-                if (sourceFileBrowser.ShowDialog() == DialogResult.OK)
-                {
-                    XmlHandler.project.ProjectSourcePath = sourceFileBrowser.SelectedPath.ToString();
-                    TxtSourcePath.Text = XmlHandler.project.ProjectSourcePath.ToString();
-                }
+                _XmlHandler.project.ProjectSourcePath = openFolder.SelectedPath.ToString();
+               TxtSourcePath.Text = _XmlHandler.project.ProjectSourcePath;
             }
         }
 
         private void BtnSelectTargetPath_Click(object sender, EventArgs e)
-        { 
-            using (FolderBrowserDialog targetFolderBrowser = new FolderBrowserDialog() { Description = "select the target folder" })
+        {
+            var openFolder = new VistaFolderBrowserDialog();
+            openFolder.Description = "Select the target folder";
+            openFolder.UseDescriptionForTitle = true;
+            openFolder.SelectedPath = TxtTargetPath.Text + "/";
+
+            if (openFolder.ShowDialog() == DialogResult.OK)
             {
-                if (targetFolderBrowser.ShowDialog() == DialogResult.OK)
-                {
-                    TxtTargetPath.Text = targetFolderBrowser.SelectedPath.ToString();
-                    XmlHandler.project.ProjectTargetPath = targetFolderBrowser.SelectedPath.ToString();
-                }
+                _XmlHandler.project.ProjectTargetPath = openFolder.SelectedPath.ToString();
+                TxtTargetPath.Text = _XmlHandler.project.ProjectTargetPath;
             }
         }
 
         private void BtnSelectFiles_Click(object sender, EventArgs e)
         {
-            XmlHandler.project.ProjectSourcePath = TxtSourcePath.Text;
-            if (XmlHandler.project.ProjectSourcePath == null)
+            _XmlHandler.project.ProjectSourcePath = TxtSourcePath.Text;
+            if (_XmlHandler.project.ProjectSourcePath == null)
             {
                 MessageBox.Show("no folder selected pick a source folder first");
             }
@@ -68,20 +74,20 @@ namespace file_transfer_v2
             {
                 using (OpenFileDialog selectFiles = new OpenFileDialog())
                 {
-                    selectFiles.InitialDirectory = XmlHandler.project.ProjectSourcePath.ToString();
+                    selectFiles.InitialDirectory = _XmlHandler.project.ProjectSourcePath.ToString();
                     selectFiles.Multiselect = true;
 
                     if (selectFiles.ShowDialog() == DialogResult.OK)
                     {
-                        XmlHandler.project.ProjectFiles.Clear();
+                        _XmlHandler.project.ProjectFiles.Clear();
                         LsvSelectedFiles.Items.Clear();
 
                         foreach (object obj in selectFiles.SafeFileNames)
                         {
-                            XmlHandler.project.ProjectFiles.Add(obj.ToString());
+                            _XmlHandler.project.ProjectFiles.Add(obj.ToString());
                         }
 
-                        foreach (string s in XmlHandler.project.ProjectFiles)
+                        foreach (string s in _XmlHandler.project.ProjectFiles)
                         {
                             string[] extentions = s.Split('.');
                             var newRow = new string[] { extentions[0], "." + extentions[1] };
@@ -94,61 +100,10 @@ namespace file_transfer_v2
             }
         }
 
-        private void BtnEditProfile_Click(object sender, EventArgs e)
-        {
-            int projectId = CmbSelectProfile.SelectedIndex;
-            XmlHandler.project.ProjectName = TxtProfileName.Text;
-            XmlHandler.project.ProjectSourcePath = TxtSourcePath.Text;
-            XmlHandler.project.ProjectTargetPath = TxtTargetPath.Text;
-
-            XmlHandler.EditProfile(projectId);
-            timer1.Start();
-            BtnEditProfile.Text = "saved changes";
-            CmbSelectProfile.Items.Clear();
-            XmlHandler.GetNames();
-            foreach (object obj in XmlHandler.ProfileNameList)
-            {
-                CmbSelectProfile.Items.Add(obj.ToString());
-                int CmbId = CmbSelectProfile.Items.Count;
-                CmbSelectProfile.SelectedIndex = CmbId - 1;
-            }
-        }
-
-        private void BtnNewProfile_Click(object sender, EventArgs e)
-        {
-            NewProfile newProfile = new NewProfile(XmlHandler);
-
-            newProfile.ShowDialog();
-            CmbSelectProfile.Items.Clear();
-            XmlHandler.GetNames();
-            foreach (object obj in XmlHandler.ProfileNameList)
-            {
-                CmbSelectProfile.Items.Add(obj.ToString());
-                int CmbId = CmbSelectProfile.Items.Count;
-                CmbSelectProfile.SelectedIndex = CmbId - 1;
-            }
-        }
-
-        private void btnDeleteProject_Click(object sender, EventArgs e)
-        {
-            int projectId = CmbSelectProfile.SelectedIndex;
-            XmlHandler.DeleteProfile(projectId);
-            XmlHandler.GetNames();
-            CmbSelectProfile.Items.Clear();
-            foreach (object obj in XmlHandler.ProfileNameList)
-            {
-                CmbSelectProfile.Items.Add(obj.ToString());
-                int CmbId = CmbSelectProfile.Items.Count;
-                CmbSelectProfile.SelectedIndex = CmbId - 1;
-            }
-            timer1.Start();
-            btnDeleteProject.Text = "Deleted project";
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            BtnEditProfile.Text = "Save changes";
-            btnDeleteProject.Text = "Delete project";
+        private void Timer1_Tick(object sender, EventArgs e)
+        { 
+            PbSaveProfile.Image = Image.FromFile("../../Images/SaveIcon.png");
+            PbDeleteProfile.Image = Image.FromFile("../../Images/RedTrashCan.png");
             timer1.Stop();
         }
 
@@ -156,9 +111,10 @@ namespace file_transfer_v2
         {  
             LsvSelectedFiles.Items.Clear();
             int projectId = CmbSelectProfile.SelectedIndex;
-            XmlHandler.SelectProject(projectId);
+            _XmlHandler.SelectProject(projectId);
 
-            foreach( string s in XmlHandler.project.ProjectFiles)
+
+            foreach( string s in _XmlHandler.project.ProjectFiles)
             {
                 string[] extentions = s.Split('.');
                 var newRow = new string[] { extentions[0], "." + extentions[1] };
@@ -167,9 +123,95 @@ namespace file_transfer_v2
                 LsvSelectedFiles.Items.Add(lvi);
             }
          
-            TxtProfileName.Text = XmlHandler.project.ProjectName;
-            TxtSourcePath.Text = XmlHandler.project.ProjectSourcePath;
-            TxtTargetPath.Text = XmlHandler.project.ProjectTargetPath;
+            TxtProfileName.Text = _XmlHandler.project.ProjectName;
+            TxtSourcePath.Text = _XmlHandler.project.ProjectSourcePath;
+            TxtTargetPath.Text = _XmlHandler.project.ProjectTargetPath;
+            TxtDateTimeFormat.Text = _XmlHandler.project.ProjectDateFormat;
+        }
+
+        private void PbDeleteProfile_Click(object sender, EventArgs e)
+        {
+            if (CmbSelectProfile.SelectedIndex == 0)
+            {
+                MessageBox.Show("you cannot delete this project");
+            }
+            else
+            {
+                var MessageCaption = "Warning";
+                var messageString = "Are you sure you want to delete the following project: " + CmbSelectProfile.SelectedItem.ToString() + "\n this action cannot be undone are you sure you want to continue?";
+                var result = MessageBox.Show(messageString, MessageCaption, MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.No)
+                {
+                    MessageBox.Show("Operation has been cancelled by user");
+                }
+                if (result == DialogResult.Yes)
+                {
+                    int projectId = CmbSelectProfile.SelectedIndex;
+                    _XmlHandler.DeleteProfile(projectId);
+                    _XmlHandler.GetNames();
+                    CmbSelectProfile.Items.Clear();
+                    foreach (object obj in _XmlHandler.ProfileNameList)
+                    {
+                        CmbSelectProfile.Items.Add(obj.ToString());
+                        int CmbId = CmbSelectProfile.Items.Count;
+                        CmbSelectProfile.SelectedIndex = CmbId - 1;
+                    }
+                    timer1.Start();
+                    PbDeleteProfile.Image = Image.FromFile("../../Images/GreenCheckMark.png");
+                    
+                }
+            }
+        }
+
+        private void PbAddNewProfile_Click(object sender, EventArgs e)
+        {
+            NewProfile newProfile = new NewProfile(_XmlHandler);
+
+            newProfile.ShowDialog();
+            CmbSelectProfile.Items.Clear();
+            _XmlHandler.GetNames();
+            foreach (object obj in _XmlHandler.ProfileNameList)
+            {
+                CmbSelectProfile.Items.Add(obj.ToString());
+                int CmbId = CmbSelectProfile.Items.Count;
+                CmbSelectProfile.SelectedIndex = CmbId - 1;
+            }
+        }
+
+        private void PbSaveProfile_Click(object sender, EventArgs e)
+        {
+            if (TxtDateTimeFormat.Text != "")
+            {
+                int projectId = CmbSelectProfile.SelectedIndex;
+                _XmlHandler.project.ProjectName = TxtProfileName.Text;
+                _XmlHandler.project.ProjectSourcePath = TxtSourcePath.Text;
+                _XmlHandler.project.ProjectTargetPath = TxtTargetPath.Text;
+                _XmlHandler.project.ProjectDateFormat = TxtDateTimeFormat.Text;
+
+                _XmlHandler.EditProfile(projectId);
+                timer1.Start();
+                //BtnEditProfile.Text = "saved changes";
+                CmbSelectProfile.Items.Clear();
+                _XmlHandler.GetNames();
+                foreach (object obj in _XmlHandler.ProfileNameList)
+                {
+                    CmbSelectProfile.Items.Add(obj.ToString());
+                    int CmbId = CmbSelectProfile.Items.Count;
+                    CmbSelectProfile.SelectedIndex = CmbId - 1;
+                }
+                timer1.Start();
+                PbSaveProfile.Image = Image.FromFile("../../Images/GreenCheckMark.png");
+            }
+            else
+            {
+                MessageBox.Show("No dateTime format found");
+            }
+        }
+
+        private void TxtProfileName_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

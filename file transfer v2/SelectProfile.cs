@@ -14,7 +14,8 @@ namespace file_transfer_v2
 {
     public partial class FrmSelectProfile : Form
     {
-        public XmlHandler xmlHandler = new XmlHandler();
+        public XmlHandler _xmlHandler = new XmlHandler();
+        
 
 
         public FrmSelectProfile()
@@ -24,24 +25,31 @@ namespace file_transfer_v2
 
         private void BtnCopyFiles_Click(object sender, EventArgs e)
         {
+            
             int ProjectId = CmbSelectProfile.SelectedIndex;
-            xmlHandler.CopyFiles(ProjectId);
-            if (xmlHandler.fileHandler.ErrorMessage != null)
+            _xmlHandler.project.ProjectFiles.Clear();
+            _xmlHandler.GetProjectElements(ProjectId);
+            Console.WriteLine(_xmlHandler.project.ProjectSourcePath.ToString());
+            
+
+            _xmlHandler.fileHandler.CopyFiles(ProjectId ,_xmlHandler);
+            if (_xmlHandler.fileProperties.ErrorMessage != null)
             {
-                MessageBox.Show(xmlHandler.fileHandler.ErrorMessage.ToString());
+                MessageBox.Show(_xmlHandler.fileProperties.ErrorMessage.ToString());
             }
-            BtnCopyFiles.Text = xmlHandler.fileHandler.ButtonText.ToString();
-            timer1.Start();
+            //BtnCopyFiles.Text = _xmlHandler.fileHandler.ButtonText.ToString();
+            timer1.Start(); 
+           
         }
 
         private void BtnEditProfile_Click(object sender, EventArgs e)
         {
-            Form ProfileManager = new ProfileManager(xmlHandler);
+            Form ProfileManager = new ProfileManager(_xmlHandler);
 
             ProfileManager.ShowDialog();
             CmbSelectProfile.Items.Clear();
-            xmlHandler.GetNames();
-            foreach (object obj in xmlHandler.ProfileNameList)
+            _xmlHandler.GetNames();
+            foreach (object obj in _xmlHandler.ProfileNameList)
             {
                 CmbSelectProfile.Items.Add(obj.ToString());
                 int CmbId = CmbSelectProfile.Items.Count;
@@ -53,12 +61,14 @@ namespace file_transfer_v2
         private void CmbSelectProfile_SelectedIndexChanged(object sender, EventArgs e)
         {
             int projectId = CmbSelectProfile.SelectedIndex;
-            xmlHandler.GetProjectElements(projectId);   
+            _xmlHandler.GetProjectElements(projectId);   
         }
         private void FrmSelectProfile_Load(object sender, EventArgs e)
-        {  
-            xmlHandler.GetNames();
-            foreach (object obj in xmlHandler.ProfileNameList)
+        {
+            _xmlHandler.DatabaseExists();
+            _xmlHandler.LoadDb();
+            _xmlHandler.GetNames();
+            foreach (object obj in _xmlHandler.ProfileNameList)
             {
                 CmbSelectProfile.Items.Add(obj.ToString());
                 int CmbId = CmbSelectProfile.Items.Count;

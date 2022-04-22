@@ -10,63 +10,70 @@ namespace file_transfer_v2
 {
     public class XmlHandler
     {
+   
         public Project project = new Project();
         public List<string> ProfileNameList = new List<string>();
-        public XDocument document = XDocument.Load("Database.xml");
-        private string xmlPath = "Database.xml";
-        public FileHandler fileHandler = new FileHandler();
+        public XDocument document;
+        private string XmlPath = "Database.xml";
+        public FileProperties fileProperties = new FileProperties();
         public List<string> FileLists = new List<string>();
-
+        //private string FolderDate;
+        public FileHandler fileHandler = new FileHandler();
 
         public void GetNames()
         {
             ProfileNameList.Clear();
-            foreach (XElement projects in document.Elements("projects"))
+            foreach (XElement projects in document.Elements("Projects"))
             {
-                foreach (XElement projectElements in projects.Elements("project"))
+                foreach (XElement projectElements in projects.Elements("Project"))
                 {
                     foreach (XElement ProjectSubElements in projectElements.Descendants())
                     {
-                        if (ProjectSubElements.Name == "projectName")
+                        if (ProjectSubElements.Name == "ProjectName")
                         {
                             ProfileNameList.Add(ProjectSubElements.Value);
                         }
                     }
                 }
             }
-
         }
+        public void LoadDb()
+        {
+            document = XDocument.Load(XmlPath);
+        }
+
         public void GetProjectElements(int ProjectId)
         {
             project.ProjectFiles.Clear();
             int i = 0;
-            foreach (XElement projects in document.Elements("projects"))
+            foreach (XElement projects in document.Elements("Projects"))
             {
-                foreach (XElement projectElements in projects.Elements("project"))
+                foreach (XElement projectElements in projects.Elements("Project"))
                 {
                     if (i == ProjectId)
                     {
                         foreach (XElement ProjectSubElements in projectElements.Descendants())
                         {
-                            if (ProjectSubElements.Name == "projectName")
+                            if (ProjectSubElements.Name == "ProjectName")
                             {
-                                project.ProjectName = projectElements.Value;
+                                project.ProjectName = ProjectSubElements.Value;
                             }
 
-                            if (projectElements.Name == "projectSourcePath")
+                            if (ProjectSubElements.Name == "ProjectSourcePath")
                             {
-                                project.ProjectSourcePath = projectElements.Value;
+                                project.ProjectSourcePath = ProjectSubElements.Value;
                             }
 
-                            if (projectElements.Name == "projectTargetPath")
+                            if (ProjectSubElements.Name == "ProjectTargetPath")
                             {
-                                project.ProjectTargetPath = projectElements.Value;
+                                project.ProjectTargetPath = ProjectSubElements.Value;
                             }
 
-                            if (projectElements.Name == "projectFiles")
+                            if (ProjectSubElements.Name == "ProjectFiles")
                             {
-                                foreach (XElement fileElements in projectElements.Descendants())
+                                foreach (XElement fileElements in ProjectSubElements.Descendants())
                                 {
+                                   // Console.WriteLine(fileElements.Value.ToString());
                                     project.ProjectFiles.Add(fileElements.Value);
                                 }
                             }
@@ -77,73 +84,27 @@ namespace file_transfer_v2
             }
         }
 
-        public void CopyFiles(int ProjectId)
-        {
-            bool fileFlag = true;
-            if (ProjectId == 0)
-            {
-                fileHandler.ErrorMessage = "you can't copy this preset";
-            }
-            else
-            {
-                foreach (string s in project.ProjectFiles)
-                {
-                    //checks if files exists
-                    if (!File.Exists(project.ProjectSourcePath + "/" + s))
-                    {
-                        fileFlag = false;
-                    }
-                }
-
-                if (fileFlag == true)
-                {
-                    Directory.CreateDirectory(project.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString());
-                    foreach (string s in project.ProjectFiles)
-                    {
-                        File.Copy(project.ProjectSourcePath + "/" + s, project.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd") + "/" + s, true);
-                    }
-                    fileHandler.ButtonText = "copying of the files has been completed";
-                }
-                else
-                {
-                    if (fileFlag == true)
-                    {
-                        Directory.CreateDirectory(project.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd").ToString());
-                        foreach (string s in project.ProjectFiles)
-                        {
-                            File.Copy(project.ProjectSourcePath + "/" + s, project.ProjectTargetPath + "/" + DateTime.Now.ToString("yyMMdd") + "/" + s, true);
-                        }
-                        fileHandler.ButtonText = "copying of the files has been completed";
-                    }
-                }
-                if (fileFlag == false)
-                {
-                    fileHandler.ErrorMessage = "some files could not be found";
-                }
-            }
-        }
-
         public void DatabaseExists()
         {
-            if (!File.Exists(xmlPath))
+            if (!File.Exists(XmlPath))
             {
                 XDocument xDoc = new XDocument(new XDeclaration("1.0", "utf-8", "yes"));
-                var profile = new XElement("projects");
+                var profile = new XElement("Projects");
 
                 xDoc.Add(profile);
 
-                var project = new XElement("project");
+                var project = new XElement("Project");
 
-                var projectName = new XElement("projectName");
-                projectName.Value = "select a project";
+                var projectName = new XElement("ProjectName");
+                projectName.Value = "Select a project";
 
-                var source = new XElement("projectSourcePath");
-                source.Value = "select a source path";
+                var source = new XElement("ProjectSourcePath");
+                source.Value = "Select a source path";
 
-                var target = new XElement("projectTargetPath");
-                target.Value = "select a target path";
+                var target = new XElement("ProjectTargetPath");
+                target.Value = "Select a target path";
 
-                var projectfiles = new XElement("projectFiles");
+                var projectfiles = new XElement("ProjectFiles");
 
                 profile.Add(project);
                 project.Add(projectName, source, target, projectfiles);
@@ -156,9 +117,9 @@ namespace file_transfer_v2
                     projectfiles.Add(file);
                 }
 
-                xDoc.Save(xmlPath);
+                xDoc.Save(XmlPath);
 
-                fileHandler.ErrorMessage = "the xml file was not found, created a new one";
+                fileProperties.ErrorMessage = "The xml file was not found, created a new one";
             }
         }
 
@@ -169,27 +130,31 @@ namespace file_transfer_v2
             project.ProjectFiles.Clear();
             //reading data from xml
 
-            foreach (XElement projectElement in XElement.Load(xmlPath).Elements("project"))
+            foreach (XElement projectElement in XElement.Load(XmlPath).Elements("Project"))
             {
                 if (projectCount == projectId)
                 {
                     foreach (var child in projectElement.Elements())
                     {
-                        if (child.Name == "projectName")
+                        if (child.Name == "ProjectName")
                         {
                             project.ProjectName = child.Value;
                         }
 
-                        if (child.Name == "projectSourcePath")
+                        if (child.Name == "ProjectSourcePath")
                         {
                             project.ProjectSourcePath = child.Value;
                         }
 
-                        if (child.Name == "projectTargetPath")
+                        if (child.Name == "ProjectTargetPath")
                         {
                             project.ProjectTargetPath = child.Value;
                         }
 
+                        if (child.Name == "DateTimeFormat")
+                        {
+                            project.ProjectDateFormat = child.Value;
+                        }
                         foreach (var decentand in child.Descendants())
                         {
                             if (decentand.Name == "File")
@@ -209,14 +174,14 @@ namespace file_transfer_v2
         {
             if (projectId == 0)
             {
-                fileHandler.ErrorMessage = "you cannot delete this project";
+                fileProperties.ErrorMessage = "You cannot delete this project";
             }
             else
             {
                 
-                var projectsElement = document.Elements("projects");
+                var projectsElement = document.Elements("Projects");
                 int projectcount = 0;
-                foreach (XElement projectElement in projectsElement.Elements("project"))
+                foreach (XElement projectElement in projectsElement.Elements("Project"))
                 {
                     if (projectcount == projectId)
                     {
@@ -224,20 +189,19 @@ namespace file_transfer_v2
                     }
                     projectcount++;
                 }
-                document.Save(xmlPath);
-                fileHandler.ButtonText = "profile deleted";
+                document.Save(XmlPath);
+                fileProperties.ButtonText = "Profile deleted";
             }
         }
 
-
         public void EditProfile(int ProjectId)
         {
-            fileHandler.ButtonText = null;
-            fileHandler.ErrorMessage = null;
+            fileProperties.ButtonText = null;
+            fileProperties.ErrorMessage = null;
             bool fileFlag = true;
             if (ProjectId == 0)
             {
-                 fileHandler.ErrorMessage = "you cannot edit this profile";
+                 fileProperties.ErrorMessage = "You cannot edit this profile";
             }
             else
             {
@@ -253,7 +217,7 @@ namespace file_transfer_v2
 
                     if (fileFlag == false)
                     {
-                        fileHandler.ErrorMessage = "some or all files could not be found";
+                        fileProperties.ErrorMessage = "Some or all files could not be found";
                     }
                     else
                     {
@@ -267,22 +231,22 @@ namespace file_transfer_v2
                             {
                                 foreach (XElement projectElements in projectElement.Descendants())
                                 {
-                                    if (projectElements.Name == "projectName")
+                                    if (projectElements.Name == "ProjectName")
                                     {
                                         projectElements.Value = project.ProjectName;
                                     }
 
-                                    if (projectElements.Name == "projectSourcePath")
+                                    if (projectElements.Name == "ProjectSourcePath")
                                     {
                                         projectElements.Value = project.ProjectSourcePath;
                                     }
 
-                                    if (projectElements.Name == "projectTargetPath")
+                                    if (projectElements.Name == "ProjectTargetPath")
                                     {
                                         projectElements.Value = project.ProjectTargetPath;
                                     }
 
-                                    if (projectElements.Name == "projectFiles")
+                                    if (projectElements.Name == "ProjectFiles")
                                     {
                                         projectElements.RemoveNodes();
 
@@ -291,20 +255,25 @@ namespace file_transfer_v2
                                             projectElements.Add(new XElement("File", obj.ToString()));
                                         }
                                     }
+
+                                    if (projectElements.Name == "DateTimeFormat")
+                                    {
+                                        projectElements.Value = project.ProjectDateFormat;
+                                    }
                                 }
                             }
                             projectCount++;
                         }
 
-                        document.Save(xmlPath);
+                        document.Save(XmlPath);
                         
-                        fileHandler.ButtonText = "changes have been saved";
+                        fileProperties.ButtonText = "Changes have been saved";
                     }
                 }
 
                 else
                 {
-                    fileHandler.ButtonText = "one or both given paths do not exist";
+                    fileProperties.ErrorMessage = "One or both given paths do not exist";
                 }
             }
         }
@@ -315,20 +284,21 @@ namespace file_transfer_v2
             XDocument xdoc = document;
 
             //creating new elements
-            var projects = new XElement("project");
-            var projectName = new XElement("projectName");
-            var projectSourcePath = new XElement("projectSourcePath");
-            var projectTargetPath = new XElement("projectTargetPath");
-            var projectFiles = new XElement("projectFiles");
+            var projects = new XElement("Project");
+            var projectName = new XElement("ProjectName");
+            var projectSourcePath = new XElement("ProjectSourcePath");
+            var projectTargetPath = new XElement("ProjectTargetPath");
+            var projectFiles = new XElement("ProjectFiles");
+            var ProjectDateFormat = new XElement("DateTimeFormat");
 
             //giving values to elements
             projectName.Value = project.ProjectName;
 
             //adding elements to file
-            xdoc.Element("projects").Add(projects);
-            projects.Add(projectName, projectSourcePath, projectTargetPath, projectFiles);
+            xdoc.Element("Projects").Add(projects);
+            projects.Add(projectName, projectSourcePath, projectTargetPath, projectFiles,ProjectDateFormat);
 
-            xdoc.Save(xmlPath);
+            xdoc.Save(XmlPath);
         }
     }
 } 

@@ -1,64 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<projects>
-  <project>
-    <projectName>select a project</projectName>
-    <projectSourcePath>select a source path</projectSourcePath>
-    <projectTargetPath>select a target path</projectTargetPath>
-    <projectFiles>
-      <File>file1.txt</File>
-      <File>file2.txt</File>
+<Projects>
+  <Project>
+    <ProjectName>Project A</ProjectName>
+    <ProjectSourcePath>C:\Users\gigaj\Desktop\dummy source folder</ProjectSourcePath>
+    <ProjectTargetPath>C:\Users\gigaj\Desktop\dummy target folder</ProjectTargetPath>
+    <ProjectFiles>
       <File>file3.txt</File>
-    </projectFiles>
-  </project>
-  <project>
-    <projectName>Project A</projectName>
-    <projectSourcePath>C:\Users\gigaj\Desktop\dummy source folder</projectSourcePath>
-    <projectTargetPath>C:\Users\gigaj\Desktop\console Release</projectTargetPath>
-    <projectFiles>
+      <File>file4.txt</File>
+      <File>file5.txt</File>
+    </ProjectFiles>
+  </Project>
+  <Project>
+    <ProjectName>Project D</ProjectName>
+    <ProjectSourcePath>C:\Users\gigaj\Desktop\dummy source folder</ProjectSourcePath>
+    <ProjectTargetPath>C:\Users\gigaj\Desktop\dummy target folder</ProjectTargetPath>
+    <ProjectFiles>
       <File>file1.txt</File>
       <File>file2.txt</File>
       <File>file3.txt</File>
       <File>file4.txt</File>
       <File>file5.txt</File>
-    </projectFiles>
-  </project>
-  <project>
-    <projectName>Profile B</projectName>
-    <projectSourcePath>C:\Users\gigaj\Desktop\dummy source folder</projectSourcePath>
-    <projectTargetPath>C:\Users\gigaj\Desktop\dummy target folder</projectTargetPath>
-    <projectFiles>
-      <File>file2.txt</File>
-    </projectFiles>
-  </project>
-  <project>
-    <projectName>project C</projectName>
-    <projectSourcePath>C:\Users\gigaj\Desktop\dummy source folder</projectSourcePath>
-    <projectTargetPath>C:\Users\gigaj\Desktop\dummy target folder</projectTargetPath>
-    <projectFiles>
+    </ProjectFiles>
+    <DateTimeFormat>ddMMyy</DateTimeFormat>
+  </Project>
+  <Project>
+    <ProjectName>Project B</ProjectName>
+    <ProjectSourcePath>C:\Users\gigaj\Desktop\dummy source folder</ProjectSourcePath>
+    <ProjectTargetPath>C:\Users\gigaj\Desktop\dummy target folder</ProjectTargetPath>
+    <ProjectFiles>
       <File>file1.txt</File>
       <File>file2.txt</File>
       <File>file3.txt</File>
       <File>file4.txt</File>
       <File>file5.txt</File>
-    </projectFiles>
-  </project>
-  <project>
-    <projectName>Console application</projectName>
-    <projectSourcePath>C:\Users\gigaj\source\repos\copy testProgram\copy testProgram\bin\Debug\net5.0</projectSourcePath>
-    <projectTargetPath>C:\Users\gigaj\Desktop\console Release</projectTargetPath>
-    <projectFiles>
-      <File>copy testProgram.deps.json</File>
-      <File>copy testProgram.dll</File>
-      <File>copy testProgram.exe</File>
-      <File>copy testProgram.pdb</File>
-      <File>copy testProgram.runtimeconfig.dev.json</File>
-      <File>copy testProgram.runtimeconfig.json</File>
-    </projectFiles>
-  </project>
-  <project>
-    <projectName>Profile E</projectName>
-    <projectSourcePath />
-    <projectTargetPath />
-    <projectFiles />
-  </project>
-</projects>
+    </ProjectFiles>
+    <DateTimeFormat>ddMMyy</DateTimeFormat>
+  </Project>
+</Projects>
