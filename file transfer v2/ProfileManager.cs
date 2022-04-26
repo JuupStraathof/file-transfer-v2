@@ -200,14 +200,13 @@ namespace file_transfer_v2
                 Timer1.Start();
                 CmbSelectProfile.Items.Clear();
                 _XmlHandler.GetNames();
+                _XmlHandler.SetLastSelectedProfile();
 
                 foreach (object obj in _XmlHandler.ProfileNameList)
                 {
                     CmbSelectProfile.Items.Add(obj.ToString());
                 }
 
-                
-                _XmlHandler.SetLastSelectedProfile();
                 if (int.Parse(_XmlHandler.project.LastUsedProject) <= CmbSelectProfile.Items.Count)
                 {
                     CmbSelectProfile.SelectedIndex = int.Parse(_XmlHandler.project.LastUsedProject) ;
@@ -215,7 +214,6 @@ namespace file_transfer_v2
 
                 Timer1.Start();
                 PbSaveProfile.Image = Image.FromFile(ImageFolder + "GreenCheckMark.png");
-                
             }
             else
             {
