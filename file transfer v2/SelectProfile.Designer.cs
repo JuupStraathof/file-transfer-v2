@@ -94,6 +94,7 @@ namespace file_transfer_v2
             this.Controls.Add(this.groupBox1);
             this.Name = "FrmSelectProfile";
             this.Text = "Select Profile";
+            this.TransparencyKey = System.Drawing.Color.Transparent;
             this.Load += new System.EventHandler(this.FrmSelectProfile_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
