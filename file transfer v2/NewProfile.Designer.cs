@@ -34,7 +34,7 @@ namespace file_transfer_v2
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.LblError = new System.Windows.Forms.Label();
             this.BtnCreateNewProfile = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,10 +75,10 @@ namespace file_transfer_v2
             this.BtnCreateNewProfile.UseVisualStyleBackColor = true;
             this.BtnCreateNewProfile.Click += new System.EventHandler(this.BtnCreateNewProfile_Click);
             // 
-            // timer1
+            // Timer1
             // 
-            this.timer1.Interval = 5000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.Timer1.Interval = 2500;
+            this.Timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // NewProfile
             // 
@@ -88,6 +88,7 @@ namespace file_transfer_v2
             this.Controls.Add(this.groupBox1);
             this.Name = "NewProfile";
             this.Text = "NewProfile";
+            this.Load += new System.EventHandler(this.NewProfile_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -100,6 +101,6 @@ namespace file_transfer_v2
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button BtnCreateNewProfile;
         private System.Windows.Forms.Label LblError;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer Timer1;
     }
 }

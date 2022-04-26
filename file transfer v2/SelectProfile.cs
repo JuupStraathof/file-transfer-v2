@@ -16,47 +16,50 @@ namespace file_transfer_v2
     {
         public XmlHandler _xmlHandler = new XmlHandler();
         
-
-
         public FrmSelectProfile()
         {
             InitializeComponent();
         }
 
         private void BtnCopyFiles_Click(object sender, EventArgs e)
-        {
-            
+        { 
             int ProjectId = CmbSelectProfile.SelectedIndex;
             _xmlHandler.project.ProjectFiles.Clear();
             _xmlHandler.GetProjectElements(ProjectId);
-            Console.WriteLine(_xmlHandler.project.ProjectSourcePath.ToString());
-            
+            _xmlHandler.fileHandler.CopyFiles(ProjectId, _xmlHandler);
 
-            _xmlHandler.fileHandler.CopyFiles(ProjectId ,_xmlHandler);
             if (_xmlHandler.fileProperties.ErrorMessage != null)
-            {
+            {  
                 MessageBox.Show(_xmlHandler.fileProperties.ErrorMessage.ToString());
             }
-            //BtnCopyFiles.Text = _xmlHandler.fileHandler.ButtonText.ToString();
-            timer1.Start(); 
-           
+            else
+            {
+                BtnCopyFiles.Text = "Copying completed";
+            }
+
+            Timer1.Start();
+            _xmlHandler.project.LastUsedProject = CmbSelectProfile.SelectedIndex.ToString();
+            _xmlHandler.SetLastSelectedProfile();
         }
 
         private void BtnEditProfile_Click(object sender, EventArgs e)
         {
             Form ProfileManager = new ProfileManager(_xmlHandler);
-
             ProfileManager.ShowDialog();
+
             CmbSelectProfile.Items.Clear();
             _xmlHandler.GetNames();
+
             foreach (object obj in _xmlHandler.ProfileNameList)
             {
                 CmbSelectProfile.Items.Add(obj.ToString());
-                int CmbId = CmbSelectProfile.Items.Count;
-                CmbSelectProfile.SelectedIndex = CmbId - 1;
+            }
+
+            if (int.Parse(_xmlHandler.project.LastUsedProject) <= CmbSelectProfile.Items.Count)
+            {
+                CmbSelectProfile.SelectedIndex = int.Parse(_xmlHandler.project.LastUsedProject);
             }
         }
-        
 
         private void CmbSelectProfile_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -68,18 +71,23 @@ namespace file_transfer_v2
             _xmlHandler.DatabaseExists();
             _xmlHandler.LoadDb();
             _xmlHandler.GetNames();
+            _xmlHandler.GetLastSelectedProfile();
+
             foreach (object obj in _xmlHandler.ProfileNameList)
             {
                 CmbSelectProfile.Items.Add(obj.ToString());
-                int CmbId = CmbSelectProfile.Items.Count;
-                CmbSelectProfile.SelectedIndex = CmbId -1;
-            }   
+            }
+
+            if (int.Parse(_xmlHandler.project.LastUsedProject) <= CmbSelectProfile.Items.Count)
+            {
+                CmbSelectProfile.SelectedIndex = int.Parse(_xmlHandler.project.LastUsedProject);
+            }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
             BtnCopyFiles.Text = "Copy files";
-            timer1.Stop();
+            Timer1.Stop();
         }
     }
 }

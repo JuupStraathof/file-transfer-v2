@@ -10,14 +10,12 @@ namespace file_transfer_v2
 {
     public class XmlHandler
     {
-   
         public Project project = new Project();
         public List<string> ProfileNameList = new List<string>();
         public XDocument document;
         private string XmlPath = "Database.xml";
         public FileProperties fileProperties = new FileProperties();
         public List<string> FileLists = new List<string>();
-        //private string FolderDate;
         public FileHandler fileHandler = new FileHandler();
 
         public void GetNames()
@@ -73,9 +71,13 @@ namespace file_transfer_v2
                             {
                                 foreach (XElement fileElements in ProjectSubElements.Descendants())
                                 {
-                                   // Console.WriteLine(fileElements.Value.ToString());
                                     project.ProjectFiles.Add(fileElements.Value);
                                 }
+                            }
+
+                            if (ProjectSubElements.Name == "DateTimeFormat")
+                            {
+                                project.ProjectDateFormat = ProjectSubElements.Value;
                             }
                         }
                     }
@@ -91,7 +93,11 @@ namespace file_transfer_v2
                 XDocument xDoc = new XDocument(new XDeclaration("1.0", "utf-8", "yes"));
                 var profile = new XElement("Projects");
 
+                var SelectedId = new XElement("SelectedID");
+                SelectedId.Value = "0";
+
                 xDoc.Add(profile);
+                profile.Add(SelectedId);
 
                 var project = new XElement("Project");
 
@@ -106,8 +112,11 @@ namespace file_transfer_v2
 
                 var projectfiles = new XElement("ProjectFiles");
 
+                var ProjectDateFormat = new XElement("DateTimeFormat");
+                ProjectDateFormat.Value = "ddMMyy";
+
                 profile.Add(project);
-                project.Add(projectName, source, target, projectfiles);
+                project.Add(projectName, source, target, projectfiles, ProjectDateFormat);
 
                 for (int i = 1; i < 4; i++)
                 {
@@ -118,7 +127,6 @@ namespace file_transfer_v2
                 }
 
                 xDoc.Save(XmlPath);
-
                 fileProperties.ErrorMessage = "The xml file was not found, created a new one";
             }
         }
@@ -159,8 +167,6 @@ namespace file_transfer_v2
                         {
                             if (decentand.Name == "File")
                             {
-                                //adding files to listview
-                                //splitting the file names on the . so we can seperate them into 2 colums
                                project.ProjectFiles.Add(decentand.Value);
                             }
                         }
@@ -178,7 +184,6 @@ namespace file_transfer_v2
             }
             else
             {
-                
                 var projectsElement = document.Elements("Projects");
                 int projectcount = 0;
                 foreach (XElement projectElement in projectsElement.Elements("Project"))
@@ -189,6 +194,8 @@ namespace file_transfer_v2
                     }
                     projectcount++;
                 }
+                project.LastUsedProject = "0";
+                SetLastSelectedProfile();
                 document.Save(XmlPath);
                 fileProperties.ButtonText = "Profile deleted";
             }
@@ -209,6 +216,7 @@ namespace file_transfer_v2
                 {
                     foreach (string s in project.ProjectFiles)
                     {
+                        //checking if all files exist before starting the copying process
                         if (!File.Exists(project.ProjectSourcePath.ToString() + "/" + s))
                         {
                             fileFlag = false;
@@ -225,9 +233,10 @@ namespace file_transfer_v2
                         var projects = projectsElement.Elements();
 
                         int projectCount = 0;
+
                         foreach (XElement projectElement in projects)
                         {
-                            if (projectCount == ProjectId)
+                            if (projectCount == ProjectId + 1)
                             {
                                 foreach (XElement projectElements in projectElement.Descendants())
                                 {
@@ -298,6 +307,37 @@ namespace file_transfer_v2
             xdoc.Element("Projects").Add(projects);
             projects.Add(projectName, projectSourcePath, projectTargetPath, projectFiles,ProjectDateFormat);
 
+            xdoc.Save(XmlPath);
+        }
+
+        public void GetLastSelectedProfile()
+        {
+            XDocument xdoc = document;
+            foreach (XElement Projects in xdoc.Elements())
+            {
+                foreach (XElement LastUsedProject in Projects.Descendants())
+                {
+                    if (LastUsedProject.Name == "SelectedID")
+                    {
+                        project.LastUsedProject = LastUsedProject.Value.ToString();
+                        break;
+                    }
+                }
+            }
+        }
+
+        public void SetLastSelectedProfile()
+        {
+            XDocument xdoc = document;
+            foreach (XElement LastUsedProject in xdoc.Descendants())
+            {
+                if (LastUsedProject.Name == "SelectedID")
+                {
+                    int Id = int.Parse(project.LastUsedProject);
+                    LastUsedProject.Value = Id.ToString();
+                    project.LastUsedProject = Id.ToString();
+                }
+            }
             xdoc.Save(XmlPath);
         }
     }

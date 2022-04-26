@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.IO;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using Ookii.Dialogs.WinForms;
 
 namespace file_transfer_v2
@@ -18,6 +17,8 @@ namespace file_transfer_v2
     {
         public XmlHandler _XmlHandler;
         public string xmlPath = "Database.xml";
+        public string ImageFolder = "../../Images/";
+
         public ProfileManager(XmlHandler xmlHandler1)
         {
             InitializeComponent();
@@ -27,11 +28,14 @@ namespace file_transfer_v2
         private void ProfileManager_Load(object sender, EventArgs e)
         {
             CmbSelectProfile.Items.Clear();
+            _XmlHandler.GetLastSelectedProfile();
             foreach (object obj in _XmlHandler.ProfileNameList)
             {
                 CmbSelectProfile.Items.Add(obj.ToString());
-                int CmbId = CmbSelectProfile.Items.Count;
-                CmbSelectProfile.SelectedIndex = CmbId - 1;
+            }
+            if (int.Parse(_XmlHandler.project.LastUsedProject) <= CmbSelectProfile.Items.Count)
+            {
+                CmbSelectProfile.SelectedIndex = int.Parse(_XmlHandler.project.LastUsedProject);
             }
         }
         
@@ -40,7 +44,7 @@ namespace file_transfer_v2
             var openFolder = new VistaFolderBrowserDialog();
             openFolder.Description = "Select the source folder";
             openFolder.UseDescriptionForTitle = true;
-            openFolder.SelectedPath = TxtSourcePath.Text + "/";
+            openFolder.SelectedPath = TxtSourcePath.Text;
 
             if (openFolder.ShowDialog() == DialogResult.OK)
             {
@@ -54,7 +58,7 @@ namespace file_transfer_v2
             var openFolder = new VistaFolderBrowserDialog();
             openFolder.Description = "Select the target folder";
             openFolder.UseDescriptionForTitle = true;
-            openFolder.SelectedPath = TxtTargetPath.Text + "/";
+            openFolder.SelectedPath = TxtTargetPath.Text;
 
             if (openFolder.ShowDialog() == DialogResult.OK)
             {
@@ -102,9 +106,9 @@ namespace file_transfer_v2
 
         private void Timer1_Tick(object sender, EventArgs e)
         { 
-            PbSaveProfile.Image = Image.FromFile("../../Images/SaveIcon.png");
-            PbDeleteProfile.Image = Image.FromFile("../../Images/RedTrashCan.png");
-            timer1.Stop();
+            PbSaveProfile.Image = Image.FromFile( ImageFolder + "SaveIcon.png");
+            PbDeleteProfile.Image = Image.FromFile(ImageFolder + "RedTrashCan.png");
+            Timer1.Stop();
         }
 
         private void CmbSelectProfile_SelectedIndexChanged(object sender, EventArgs e)
@@ -112,7 +116,6 @@ namespace file_transfer_v2
             LsvSelectedFiles.Items.Clear();
             int projectId = CmbSelectProfile.SelectedIndex;
             _XmlHandler.SelectProject(projectId);
-
 
             foreach( string s in _XmlHandler.project.ProjectFiles)
             {
@@ -154,12 +157,11 @@ namespace file_transfer_v2
                     foreach (object obj in _XmlHandler.ProfileNameList)
                     {
                         CmbSelectProfile.Items.Add(obj.ToString());
-                        int CmbId = CmbSelectProfile.Items.Count;
-                        CmbSelectProfile.SelectedIndex = CmbId - 1;
+                        CmbSelectProfile.SelectedIndex = 0;
                     }
-                    timer1.Start();
-                    PbDeleteProfile.Image = Image.FromFile("../../Images/GreenCheckMark.png");
                     
+                    Timer1.Start();
+                    PbDeleteProfile.Image = Image.FromFile(ImageFolder + "GreenCheckMark.png");  
                 }
             }
         }
@@ -167,22 +169,27 @@ namespace file_transfer_v2
         private void PbAddNewProfile_Click(object sender, EventArgs e)
         {
             NewProfile newProfile = new NewProfile(_XmlHandler);
-
             newProfile.ShowDialog();
+
             CmbSelectProfile.Items.Clear();
             _XmlHandler.GetNames();
+
             foreach (object obj in _XmlHandler.ProfileNameList)
             {
                 CmbSelectProfile.Items.Add(obj.ToString());
-                int CmbId = CmbSelectProfile.Items.Count;
-                CmbSelectProfile.SelectedIndex = CmbId - 1;
             }
+ 
+            int LastUsedProjectID = CmbSelectProfile.Items.Count - 1;
+            _XmlHandler.project.LastUsedProject = LastUsedProjectID.ToString();
+            _XmlHandler.SetLastSelectedProfile();
+            CmbSelectProfile.SelectedIndex = int.Parse(_XmlHandler.project.LastUsedProject);
         }
 
         private void PbSaveProfile_Click(object sender, EventArgs e)
         {
             if (TxtDateTimeFormat.Text != "")
             {
+                _XmlHandler.project.LastUsedProject = CmbSelectProfile.SelectedIndex.ToString();
                 int projectId = CmbSelectProfile.SelectedIndex;
                 _XmlHandler.project.ProjectName = TxtProfileName.Text;
                 _XmlHandler.project.ProjectSourcePath = TxtSourcePath.Text;
@@ -190,28 +197,30 @@ namespace file_transfer_v2
                 _XmlHandler.project.ProjectDateFormat = TxtDateTimeFormat.Text;
 
                 _XmlHandler.EditProfile(projectId);
-                timer1.Start();
-                //BtnEditProfile.Text = "saved changes";
+                Timer1.Start();
                 CmbSelectProfile.Items.Clear();
                 _XmlHandler.GetNames();
+
                 foreach (object obj in _XmlHandler.ProfileNameList)
                 {
                     CmbSelectProfile.Items.Add(obj.ToString());
-                    int CmbId = CmbSelectProfile.Items.Count;
-                    CmbSelectProfile.SelectedIndex = CmbId - 1;
                 }
-                timer1.Start();
-                PbSaveProfile.Image = Image.FromFile("../../Images/GreenCheckMark.png");
+
+                
+                _XmlHandler.SetLastSelectedProfile();
+                if (int.Parse(_XmlHandler.project.LastUsedProject) <= CmbSelectProfile.Items.Count)
+                {
+                    CmbSelectProfile.SelectedIndex = int.Parse(_XmlHandler.project.LastUsedProject) ;
+                }
+
+                Timer1.Start();
+                PbSaveProfile.Image = Image.FromFile(ImageFolder + "GreenCheckMark.png");
+                
             }
             else
             {
                 MessageBox.Show("No dateTime format found");
             }
-        }
-
-        private void TxtProfileName_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

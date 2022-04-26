@@ -33,6 +33,8 @@ namespace file_transfer_v2
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProfileManager));
             this.CmbSelectProfile = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.TxtDateTimeFormat = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.PbSaveProfile = new System.Windows.Forms.PictureBox();
@@ -51,9 +53,7 @@ namespace file_transfer_v2
             this.BtnSelectTargetPath = new System.Windows.Forms.Button();
             this.TxtTargetPath = new System.Windows.Forms.TextBox();
             this.BtnSelectSourcePath = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.TxtDateTimeFormat = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.Timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PbSaveProfile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PbAddNewProfile)).BeginInit();
@@ -68,7 +68,7 @@ namespace file_transfer_v2
             this.CmbSelectProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CmbSelectProfile.ForeColor = System.Drawing.SystemColors.WindowText;
             this.CmbSelectProfile.FormattingEnabled = true;
-            this.CmbSelectProfile.Location = new System.Drawing.Point(75, 37);
+            this.CmbSelectProfile.Location = new System.Drawing.Point(7, 47);
             this.CmbSelectProfile.Name = "CmbSelectProfile";
             this.CmbSelectProfile.Size = new System.Drawing.Size(121, 24);
             this.CmbSelectProfile.TabIndex = 0;
@@ -87,15 +87,31 @@ namespace file_transfer_v2
             this.groupBox1.Controls.Add(this.CmbSelectProfile);
             this.groupBox1.Location = new System.Drawing.Point(12, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(687, 69);
+            this.groupBox1.Size = new System.Drawing.Size(687, 86);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Actions";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(275, 27);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(112, 17);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "Date time format";
+            // 
+            // TxtDateTimeFormat
+            // 
+            this.TxtDateTimeFormat.Location = new System.Drawing.Point(278, 49);
+            this.TxtDateTimeFormat.Name = "TxtDateTimeFormat";
+            this.TxtDateTimeFormat.Size = new System.Drawing.Size(118, 22);
+            this.TxtDateTimeFormat.TabIndex = 16;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(72, 13);
+            this.label4.Location = new System.Drawing.Point(4, 27);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(102, 17);
             this.label4.TabIndex = 15;
@@ -104,7 +120,7 @@ namespace file_transfer_v2
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(209, 13);
+            this.label3.Location = new System.Drawing.Point(134, 27);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 17);
             this.label3.TabIndex = 14;
@@ -114,7 +130,7 @@ namespace file_transfer_v2
             // 
             this.PbSaveProfile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PbSaveProfile.Image = ((System.Drawing.Image)(resources.GetObject("PbSaveProfile.Image")));
-            this.PbSaveProfile.Location = new System.Drawing.Point(621, 11);
+            this.PbSaveProfile.Location = new System.Drawing.Point(621, 21);
             this.PbSaveProfile.Name = "PbSaveProfile";
             this.PbSaveProfile.Size = new System.Drawing.Size(57, 50);
             this.PbSaveProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -126,7 +142,7 @@ namespace file_transfer_v2
             // 
             this.PbAddNewProfile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PbAddNewProfile.Image = ((System.Drawing.Image)(resources.GetObject("PbAddNewProfile.Image")));
-            this.PbAddNewProfile.Location = new System.Drawing.Point(495, 11);
+            this.PbAddNewProfile.Location = new System.Drawing.Point(465, 21);
             this.PbAddNewProfile.Name = "PbAddNewProfile";
             this.PbAddNewProfile.Size = new System.Drawing.Size(57, 50);
             this.PbAddNewProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -139,7 +155,7 @@ namespace file_transfer_v2
             this.PbDeleteProfile.BackColor = System.Drawing.SystemColors.Control;
             this.PbDeleteProfile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PbDeleteProfile.Image = ((System.Drawing.Image)(resources.GetObject("PbDeleteProfile.Image")));
-            this.PbDeleteProfile.Location = new System.Drawing.Point(558, 11);
+            this.PbDeleteProfile.Location = new System.Drawing.Point(544, 21);
             this.PbDeleteProfile.Name = "PbDeleteProfile";
             this.PbDeleteProfile.Size = new System.Drawing.Size(57, 50);
             this.PbDeleteProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -149,17 +165,16 @@ namespace file_transfer_v2
             // 
             // TxtProfileName
             // 
-            this.TxtProfileName.Location = new System.Drawing.Point(212, 39);
+            this.TxtProfileName.Location = new System.Drawing.Point(137, 49);
             this.TxtProfileName.Name = "TxtProfileName";
             this.TxtProfileName.Size = new System.Drawing.Size(128, 22);
             this.TxtProfileName.TabIndex = 10;
-            this.TxtProfileName.TextChanged += new System.EventHandler(this.TxtProfileName_TextChanged);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.LsvSelectedFiles);
             this.groupBox2.Controls.Add(this.BtnSelectFiles);
-            this.groupBox2.Location = new System.Drawing.Point(12, 195);
+            this.groupBox2.Location = new System.Drawing.Point(12, 212);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(687, 190);
             this.groupBox2.TabIndex = 2;
@@ -208,7 +223,7 @@ namespace file_transfer_v2
             this.groupBox3.Controls.Add(this.BtnSelectTargetPath);
             this.groupBox3.Controls.Add(this.TxtTargetPath);
             this.groupBox3.Controls.Add(this.BtnSelectSourcePath);
-            this.groupBox3.Location = new System.Drawing.Point(12, 78);
+            this.groupBox3.Location = new System.Drawing.Point(12, 95);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(687, 111);
             this.groupBox3.TabIndex = 3;
@@ -269,37 +284,22 @@ namespace file_transfer_v2
             this.BtnSelectSourcePath.UseVisualStyleBackColor = true;
             this.BtnSelectSourcePath.Click += new System.EventHandler(this.BtnSelectSourcePath_Click);
             // 
-            // timer1
+            // Timer1
             // 
-            this.timer1.Interval = 2500;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
-            // TxtDateTimeFormat
-            // 
-            this.TxtDateTimeFormat.Location = new System.Drawing.Point(355, 39);
-            this.TxtDateTimeFormat.Name = "TxtDateTimeFormat";
-            this.TxtDateTimeFormat.Size = new System.Drawing.Size(118, 22);
-            this.TxtDateTimeFormat.TabIndex = 16;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(352, 13);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(112, 17);
-            this.label5.TabIndex = 17;
-            this.label5.Text = "Date time format";
+            this.Timer1.Interval = 2500;
+            this.Timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // ProfileManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(709, 397);
+            this.ClientSize = new System.Drawing.Size(709, 412);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "ProfileManager";
             this.Text = "ProfileManager";
+            this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.Load += new System.EventHandler(this.ProfileManager_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -330,7 +330,7 @@ namespace file_transfer_v2
         private System.Windows.Forms.TextBox TxtTargetPath;
         private System.Windows.Forms.Button BtnSelectSourcePath;
         private System.Windows.Forms.TextBox TxtProfileName;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer Timer1;
         private System.Windows.Forms.PictureBox PbAddNewProfile;
         private System.Windows.Forms.PictureBox PbDeleteProfile;
         private System.Windows.Forms.PictureBox PbSaveProfile;

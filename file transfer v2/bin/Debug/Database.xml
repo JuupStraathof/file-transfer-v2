@@ -1,17 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Projects>
+  <SelectedID>2</SelectedID>
+  <Project>
+    <ProjectName>Select a project</ProjectName>
+    <ProjectSourcePath>Select a source path</ProjectSourcePath>
+    <ProjectTargetPath>Select a target path</ProjectTargetPath>
+    <ProjectFiles>
+      <File>file1.txt</File>
+      <File>file2.txt</File>
+      <File>file3.txt</File>
+    </ProjectFiles>
+    <DateTimeFormat>ddMMyy</DateTimeFormat>
+  </Project>
   <Project>
     <ProjectName>Project A</ProjectName>
     <ProjectSourcePath>C:\Users\gigaj\Desktop\dummy source folder</ProjectSourcePath>
     <ProjectTargetPath>C:\Users\gigaj\Desktop\dummy target folder</ProjectTargetPath>
     <ProjectFiles>
+      <File>file1.txt</File>
+      <File>file2.txt</File>
       <File>file3.txt</File>
       <File>file4.txt</File>
       <File>file5.txt</File>
     </ProjectFiles>
+    <DateTimeFormat>mmyyd</DateTimeFormat>
   </Project>
   <Project>
-    <ProjectName>Project D</ProjectName>
+    <ProjectName>Project B</ProjectName>
     <ProjectSourcePath>C:\Users\gigaj\Desktop\dummy source folder</ProjectSourcePath>
     <ProjectTargetPath>C:\Users\gigaj\Desktop\dummy target folder</ProjectTargetPath>
     <ProjectFiles>
@@ -24,7 +39,7 @@
     <DateTimeFormat>ddMMyy</DateTimeFormat>
   </Project>
   <Project>
-    <ProjectName>Project B</ProjectName>
+    <ProjectName>Project C</ProjectName>
     <ProjectSourcePath>C:\Users\gigaj\Desktop\dummy source folder</ProjectSourcePath>
     <ProjectTargetPath>C:\Users\gigaj\Desktop\dummy target folder</ProjectTargetPath>
     <ProjectFiles>

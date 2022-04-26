@@ -34,7 +34,7 @@ namespace file_transfer_v2
             this.BtnEditProfile = new System.Windows.Forms.Button();
             this.BtnCopyFiles = new System.Windows.Forms.Button();
             this.CmbSelectProfile = new System.Windows.Forms.ComboBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,10 +81,10 @@ namespace file_transfer_v2
             this.CmbSelectProfile.TabIndex = 0;
             this.CmbSelectProfile.SelectedIndexChanged += new System.EventHandler(this.CmbSelectProfile_SelectedIndexChanged);
             // 
-            // timer1
+            // Timer1
             // 
-            this.timer1.Interval = 5000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.Timer1.Interval = 2500;
+            this.Timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // FrmSelectProfile
             // 
@@ -106,7 +106,7 @@ namespace file_transfer_v2
         private System.Windows.Forms.Button BtnEditProfile;
         private System.Windows.Forms.Button BtnCopyFiles;
         private System.Windows.Forms.ComboBox CmbSelectProfile;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer Timer1;
     }
 }
 

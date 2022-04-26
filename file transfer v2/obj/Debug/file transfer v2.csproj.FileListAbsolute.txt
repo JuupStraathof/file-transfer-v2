@@ -11,20 +11,7 @@ C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file tra
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.pdb
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file_transfer_v2.NewProfile.resources
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.g.resources
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Microsoft.WindowsAPICodePack.dll
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.dll
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Microsoft.WindowsAPICodePack.Sensors.dll
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.csproj.CopyComplete
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Microsoft.WindowsAPICodePack.pdb
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Microsoft.WindowsAPICodePack.xml
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.xml
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Microsoft.WindowsAPICodePack.Sensors.xml
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Microsoft.WindowsAPICodePack.Shell.pdb
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.pdb
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.xml
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Ookii.Dialogs.WinForms.dll
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\System.Buffers.dll
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\System.Memory.dll

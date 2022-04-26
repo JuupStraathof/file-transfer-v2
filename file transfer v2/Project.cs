@@ -18,6 +18,8 @@ namespace file_transfer_v2
         public string ProjectTargetPath { get; set; }
 
         public string ProjectDateFormat { get; set; }
+
+        public string LastUsedProject { get; set; }
     }
 }
 

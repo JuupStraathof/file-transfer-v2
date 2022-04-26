@@ -30,15 +30,20 @@ namespace file_transfer_v2
             else
             {
                 LblError.Text = "No project name found";
-                timer1.Start();
+                Timer1.Start();
                 
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e)
         {
-            timer1.Stop();
+            Timer1.Stop();
             LblError.Text = "";
+        }
+
+        private void NewProfile_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
