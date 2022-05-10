@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <Projects>
-  <SelectedID>0</SelectedID>
+  <SelectedID>5</SelectedID>
   <Project>
     <ProjectName>Select a project</ProjectName>
     <ProjectSourcePath>Select a source path</ProjectSourcePath>
@@ -63,5 +63,12 @@
       <File>file5.txt</File>
     </ProjectFiles>
     <DateTimeFormat>ddmmyy</DateTimeFormat>
+  </Project>
+  <Project>
+    <ProjectName>Project 1</ProjectName>
+    <ProjectSourcePath />
+    <ProjectTargetPath />
+    <ProjectFiles />
+    <DateTimeFormat />
   </Project>
 </Projects>

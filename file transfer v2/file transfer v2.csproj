@@ -130,24 +130,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\FloppyIcon.png">
+    <EmbeddedResource Include="Images\FloppyIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\GreenCheckMark.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\GreenCheckMark.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\GreenPlus.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\GreenPlus.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\RedTrashCan.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\RedTrashCan.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\SaveIcon.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Images\SaveIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\copyFilesIconPNG.ico" />
+    <EmbeddedResource Include="Images\copyFilesIconPNG.ico" />
+    <EmbeddedResource Include="Properties\Database.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

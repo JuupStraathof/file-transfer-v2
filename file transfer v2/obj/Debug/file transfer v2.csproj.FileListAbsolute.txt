@@ -1,17 +1,11 @@
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Images\FloppyIcon.png
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Images\GreenCheckMark.png
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Images\GreenPlus.png
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Images\RedTrashCan.png
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Images\SaveIcon.png
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\file transfer v2.exe.config
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\file transfer v2.exe
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\file transfer v2.pdb
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.csproj.AssemblyReference.cache
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file_transfer_v2.FrmSelectProfile.resources
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file_transfer_v2.ProfileManager.resources
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file_transfer_v2.Properties.Resources.resources
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.csproj.GenerateResource.cache
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.csproj.CoreCompileInputs.cache
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.exe
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.pdb
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file_transfer_v2.NewProfile.resources
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.g.resources
-C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.csproj.CopyComplete
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\Ookii.Dialogs.WinForms.dll
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\System.Buffers.dll
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\System.Memory.dll
@@ -24,3 +18,13 @@ C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\System.M
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\System.Resources.Extensions.xml
 C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.csproj.AssemblyReference.cache
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file_transfer_v2.NewProfile.resources
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file_transfer_v2.FrmSelectProfile.resources
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file_transfer_v2.ProfileManager.resources
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file_transfer_v2.Properties.Resources.resources
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.csproj.GenerateResource.cache
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.csproj.CoreCompileInputs.cache
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.csproj.CopyComplete
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.exe
+C:\Users\gigaj\source\repos\file transfer v2\file transfer v2\obj\Debug\file transfer v2.pdb

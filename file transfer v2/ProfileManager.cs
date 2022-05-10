@@ -16,8 +16,8 @@ namespace file_transfer_v2
     public partial class ProfileManager : Form
     {
         public XmlHandler _XmlHandler;
-        public string xmlPath = "Database.xml";
-        public string ImageFolder = "../../Images/";
+        //public string ImageFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData).ToString() + "/FileTransferResources/";
+        public string ImageFolder = "/FileTransferResources/";
 
         public ProfileManager(XmlHandler xmlHandler1)
         {
@@ -37,6 +37,7 @@ namespace file_transfer_v2
             {
                 CmbSelectProfile.SelectedIndex = int.Parse(_XmlHandler.project.LastUsedProject);
             }
+            PbAddNewProfile.Image = Image.FromFile(ImageFolder + "GreenCheckMark.png");
         }
         
         private void BtnSelectSourcePath_Click(object sender, EventArgs e)

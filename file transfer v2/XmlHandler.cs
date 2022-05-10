@@ -13,10 +13,11 @@ namespace file_transfer_v2
         public Project project = new Project();
         public List<string> ProfileNameList = new List<string>();
         public XDocument document;
-        private string XmlPath = "Database.xml";
+        public string XmlPath = "Database.xml";
         public FileProperties fileProperties = new FileProperties();
         public List<string> FileLists = new List<string>();
         public FileHandler fileHandler = new FileHandler();
+       
 
         public void GetNames()
         {
@@ -291,7 +292,7 @@ namespace file_transfer_v2
         {
             //loading document
             XDocument xdoc = document;
-
+            
             //creating new elements
             var projects = new XElement("Project");
             var projectName = new XElement("ProjectName");
@@ -306,7 +307,7 @@ namespace file_transfer_v2
             //adding elements to file
             xdoc.Element("Projects").Add(projects);
             projects.Add(projectName, projectSourcePath, projectTargetPath, projectFiles,ProjectDateFormat);
-
+            
             xdoc.Save(XmlPath);
         }
 
@@ -340,6 +341,16 @@ namespace file_transfer_v2
             }
             xdoc.Save(XmlPath);
         }
+        
+       /* public void RemoveReadOnly()
+        {
+            string filePathWithName = Directory.GetCurrentDirectory().ToString();
+            //filePathWithName = "C:/Program Files (x86)/gigajuup5@gmail.com";
+            Console.WriteLine(Directory.GetCurrentDirectory().ToString());
+            var di = new DirectoryInfo(filePathWithName);
+            di.Attributes |= FileAttributes.ReadOnly;
+
+        } */
     }
 } 
 

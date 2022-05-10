@@ -68,6 +68,9 @@ namespace file_transfer_v2
         }
         private void FrmSelectProfile_Load(object sender, EventArgs e)
         {
+            string DBlocation = "/FileTransferResources/Database.xml";
+            //_xmlHandler.XmlPath = Environment.GetFolderPath(Environment.SpecialFolder.System).ToString() + DBlocation;
+            _xmlHandler.XmlPath = DBlocation;
             _xmlHandler.DatabaseExists();
             _xmlHandler.LoadDb();
             _xmlHandler.GetNames();

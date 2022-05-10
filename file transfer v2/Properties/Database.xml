@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Projects>
+  <SelectedID>0</SelectedID>
+  <Project>
+    <ProjectName>Select a project</ProjectName>
+    <ProjectSourcePath>Select a source path</ProjectSourcePath>
+    <ProjectTargetPath>Select a target path</ProjectTargetPath>
+    <ProjectFiles>
+      <File>file1.txt</File>
+      <File>file2.txt</File>
+      <File>file3.txt</File>
+    </ProjectFiles>
+    <DateTimeFormat>ddMMyy</DateTimeFormat>
+  </Project>
+</Projects>
